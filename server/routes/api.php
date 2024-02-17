@@ -1,7 +1,12 @@
 <?php
 
 use App\Http\Controllers\api\CinemaController;
+use App\Models\Voucher;
 use Illuminate\Http\Request;
+use App\Http\Controllers\api\VoucherController;
+use App\Http\Controllers\api\GenreController;
+use App\Http\Controllers\api\MovieGenreController;
+use App\Http\Controllers\api\MoviesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
@@ -25,3 +30,7 @@ Route::post('/login', [AuthController::class,'login']);
 Route::post('/register', [AuthController::class,'register']);
 
 Route::resource('cinema', CinemaController::class);
+Route::resource('voucher',VoucherController::class);
+Route::resource('genre',GenreController::class);
+Route::resource('moviegenre',MovieGenreController::class);
+Route::resource('movies',MoviesController::class);
