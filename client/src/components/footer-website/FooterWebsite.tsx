@@ -10,7 +10,7 @@ const FooterWebsite = () => {
     <div className="mx-auto w-full max-w-screen-xl">
       <div className="grid grid-cols-2 gap-2 px-4 py-6 lg:py-8 md:grid-cols-4">
         <div>
-            <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
+            <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white dark:text-sm">
             <img src='https://betacinemas.vn/Assets/Common/logo/logo.png' />
             </h2>
             <ul className="text-black dark:text-gray-400 font-medium">
