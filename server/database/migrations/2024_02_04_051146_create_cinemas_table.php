@@ -11,16 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('cinemas', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->string('date')->nullable();
-            $table->string('role')->default(true);
-            $table->string('phone_number', 10)->nullable();
-            $table->rememberToken();
+            $table->string('address');
+            $table->unsignedInteger('screeningRooms');
+            $table->string('description');
+            $table->string('phoneContact', 20);
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('cinemas');
     }
 };
