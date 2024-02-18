@@ -1,7 +1,9 @@
-import { createBrowserRouter} from "react-router-dom";
+import {createBrowserRouter} from "react-router-dom";
 import LayoutAdmin from "./layout/admin/LayoutAdmin";
 import LayoutWebsite from "./layout/website/LayoutWebsite";
-import { Dashboard, HomePage, PageNotFound } from "./pages";
+import {Dashboard, HomePage, PageNotFound} from "./pages";
+import Login from "./pages/auth/login/Login";
+import Register from "./pages/auth/register/Register";
 
 export const router = createBrowserRouter([
     {
@@ -10,21 +12,22 @@ export const router = createBrowserRouter([
             <LayoutWebsite/>
         ),
         children: [
-            { index: true, element: <HomePage /> },
-            
+            {index: true, element: <HomePage/>},
+            {path: "/login", element: <Login/>},
+            {path: "/register", element: <Register/>}
         ],
     },
     {
         path: "/admin",
         children: [
             {
-                element: <LayoutAdmin />,
+                element: <LayoutAdmin/>,
                 children: [
-            { index: true, element: <Dashboard /> },
-                    
+                    {index: true, element: <Dashboard/>},
+
                 ],
             },
         ],
     },
-    { path: "*", element: <PageNotFound/> },
+    {path: "*", element: <PageNotFound/>},
 ]);

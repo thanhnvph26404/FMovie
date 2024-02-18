@@ -14,4 +14,13 @@ html{
 a{
     text-decoration: none;
 }
+
+.form-control:focus {
+    border-color: #999 !important;
+    box-shadow: none !important;
+}
+
+//.form-control:not(:focus) {
+//    border-color: #ced4da;
+//}
 // using rem: 1rem = 10px, 
