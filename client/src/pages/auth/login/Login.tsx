@@ -173,28 +173,28 @@ const Login = () => {
     return (
         <div className="tab-content font-family-san fs-4" style={{backgroundColor: "#fff"}}>
             {/*Login*/}
-            <div className="d-flex justify-content-center align-items-center py-5 my-5">
-                <div className="w-50">
+            <div className="flex justify-center py-5 my-5">
+                <div className="md:w-1/2 shadow-lg rounded-lg">
                     {message && <div className="alert alert-success text-center">{message}</div>}
-                    <ul className="nav nav-tabs text-uppercase tab-information rounded-top-4 overflow-hidden">
+                    <ul className="nav nav-tabs text-uppercase tab-information rounded-t-lg overflow-hidden grid grid-cols-2 justify-center border-b-2">
                         <li
-                            className="text-center py-3 bg-primary"
-                            style={{width: "50%", cursor: "pointer"}}
+                            className="text-center py-3 bg-blue-900"
+                            style={{cursor: "pointer"}}
                         >
                             <a
-                                className="fs-4 text-decoration-none fw-bold text-white"
+                                className="fs-4 text-decoration-none font-bold text-white"
                                 aria-expanded="false"
                             >
                                 Đăng nhập
                             </a>
                         </li>
                         <li
-                            style={{width: "50%", cursor: "pointer"}}
+                            style={{cursor: "pointer"}}
                             className="text-center py-3"
                             onClick={() => navigate("/register")}
                         >
                             <a
-                                className="fs-4 text-decoration-none fw-bold text-dark"
+                                className="fs-4 text-decoration-none font-bold text-dark"
                                 data-toggle="tab"
                                 aria-expanded="true"
                             >
@@ -205,7 +205,7 @@ const Login = () => {
                     <div className="p-5 rounded-bottom-4 bg-body-tertiary" id="register">
                         <div className="form-group row">
                             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
-                                <label className="control-label fs-4">
+                                <label className="block mb-2 text-sm font-medium text-gray-900">
                                     <span style={{color: "red"}}>*</span>
                                     &nbsp;Email
                                 </label>
@@ -215,36 +215,36 @@ const Login = () => {
                                         style={{height: "30px"}}
                                         id="txtEmail"
                                         name="email"
-                                        className="form-control fs-4"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         placeholder="Email"
                                         onChange={handleChange}
                                         value={formData.email}
                                     />
                                 </div>
-                                {errors?.email && <span className={"text-danger"}>{errors?.email}</span>}
+                                {errors?.email && <span className="text-red-500">{errors?.email}</span>}
                             </div>
                             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
-                                <label className="control-label fs-4">
+                                <label className="block mb-2 text-sm font-medium text-gray-900">
                                     <span style={{color: "red"}}>*</span>
                                     &nbsp;Mật khẩu
                                 </label>
-                                <div className="input-icon position-relative">
+                                <div className="input-icon relative">
                                     <input
                                         type={isShowPassword ? "text" : "password"}
                                         style={{height: "30px"}}
                                         id="txtMatKhau"
                                         name="password"
-                                        className="form-control fs-4"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         placeholder="Mật khẩu"
                                         onChange={handleChange}
                                         value={formData.password}
                                     />
                                     <i
-                                        className={`password-icon text-secondary fa-regular ${isShowPassword ? "fa-eye-slash" : "fa-eye"}`}
+                                        className={`password-icon text-blue-500 fa-regular ${isShowPassword ? "fa-eye-slash" : "fa-eye"}`}
                                         onClick={() => setIsShowPassword(!isShowPassword)}
                                     ></i>
                                 </div>
-                                {errors?.password && <span className={"text-danger"}>{errors?.password}</span>}
+                                {errors?.password && <span className="text-red-500">{errors?.password}</span>}
                             </div>
                         </div>
                         <div className="clearfix"></div>

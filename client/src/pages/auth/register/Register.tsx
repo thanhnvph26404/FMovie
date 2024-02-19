@@ -153,27 +153,27 @@ const Register = () => {
     return (
         <div className="tab-content font-family-san fs-4" style={{backgroundColor: "#fff"}}>
             {/*Register*/}
-            <div className="d-flex justify-content-center align-items-center py-5 my-5">
-                <div className="w-50">
-                    <ul className="nav nav-tabs text-uppercase tab-information rounded-top-4 overflow-hidden">
+            <div className="flex justify-center py-5 my-5">
+                <div className="w-1/2 shadow-md rounded-lg">
+                    <ul className="nav nav-tabs text-uppercase tab-information rounded-t-lg overflow-hidden grid grid-cols-2 justify-center border-b-2">
                         <li
                             className="text-center py-3"
-                            style={{width: "50%", cursor: "pointer"}}
+                            style={{cursor: "pointer"}}
                             onClick={() => navigate("/login")}
                         >
                             <a
-                                className="fs-4 text-decoration-none fw-bold text-dark"
+                                className="fs-4 text-decoration-none text-dark font-bold"
                                 aria-expanded="false"
                             >
                                 Đăng nhập
                             </a>
                         </li>
                         <li
-                            style={{width: "50%", cursor: "pointer"}}
-                            className="text-center py-3 bg-primary"
+                            style={{cursor: "pointer"}}
+                            className="text-center py-3 bg-blue-900"
                         >
                             <a
-                                className="fs-4 text-decoration-none text-white fw-bold"
+                                className="fs-4 text-decoration-none text-white font-bold"
                                 data-toggle="tab"
                                 aria-expanded="true"
                             >
@@ -181,10 +181,10 @@ const Register = () => {
                             </a>
                         </li>
                     </ul>
-                    <div className="p-5 rounded-bottom-4 bg-body-tertiary" id="register">
+                    <div className="p-5 rounded-b-lg bg-white shadow-md" id="register">
                         <div className="form-group row">
                             <div className="col-md-12 mb-3">
-                                <label className="control-label fs-4">
+                                <label className="block mb-2 text-sm font-medium text-gray-900">
                                     <span style={{color: "red"}}>*</span>
                                     &nbsp;Họ và tên
                                 </label>
@@ -194,18 +194,18 @@ const Register = () => {
                                         style={{height: "30px"}}
                                         id="txtHoTen"
                                         name="name"
-                                        className="form-control fs-4"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         placeholder="Họ và tên"
                                         onChange={handleChange}
                                         value={formData.name}
                                     />
                                 </div>
-                                {errors?.name && <span className={"text-danger"}>{errors?.name}</span>}
+                                {errors?.name && <span className="text-red-500">{errors?.name}</span>}
                             </div>
                         </div>
-                        <div className="form-group row">
+                        <div className="form-group row grid md:grid-cols-2 md:gap-6">
                             <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
-                                <label className="control-label fs-4">
+                                <label className="block mb-2 text-sm font-medium text-gray-900">
                                     <span style={{color: "red"}}>*</span>
                                     &nbsp;Email
                                 </label>
@@ -215,42 +215,42 @@ const Register = () => {
                                         style={{height: "30px"}}
                                         id="txtEmail"
                                         name="email"
-                                        className="form-control fs-4"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         placeholder="Email"
                                         onChange={handleChange}
                                         value={formData.email}
                                     />
                                 </div>
-                                {errors?.email && <span className={"text-danger"}>{errors?.email}</span>}
+                                {errors?.email && <span className="text-red-500">{errors?.email}</span>}
                             </div>
                             <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
-                                <label className="control-label fs-4">
+                                <label className="block mb-2 text-sm font-medium text-gray-900">
                                     <span style={{color: "red"}}>*</span>
                                     &nbsp;Mật khẩu
                                 </label>
-                                <div className="input-icon position-relative">
+                                <div className="input-icon relative">
                                     <input
                                         type={isShowPassword ? "text" : "password"}
                                         style={{height: "30px"}}
                                         id="txtMatKhau"
                                         name="password"
-                                        className="form-control fs-4"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         placeholder="Mật khẩu"
                                         onChange={handleChange}
                                         value={formData.password}
                                     />
                                     <i
-                                        className={`password-icon text-secondary fa-regular ${isShowPassword ? "fa-eye-slash" : "fa-eye"}`}
+                                        className={`password-icon text-blue-500 fa-regular ${isShowPassword ? "fa-eye-slash" : "fa-eye"}`}
                                         onClick={() => setIsShowPassword(!isShowPassword)}
                                     ></i>
                                 </div>
-                                {errors?.password && <span className={"text-danger"}>{errors?.password}</span>}
+                                {errors?.password && <span className="text-red-500">{errors?.password}</span>}
                             </div>
                         </div>
                         <div className="clearfix"></div>
-                        <div className="form-group row">
+                        <div className="form-group row grid md:grid-cols-2 md:gap-6">
                             <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
-                                <label className="control-label fs-4">
+                                <label className="block mb-2 text-sm font-medium text-gray-900">
                                     <span style={{color: "red"}}>*</span>
                                     &nbsp;Ngày sinh
                                 </label>
@@ -260,16 +260,16 @@ const Register = () => {
                                         style={{height: "30px"}}
                                         type="date"
                                         name="date"
-                                        className="datepicker form-control fs-4"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         placeholder="Ngày sinh"
                                         onChange={handleChange}
                                         value={formData.date}
                                     />
                                 </div>
-                                {errors?.date && <span className={"text-danger"}>{errors?.date}</span>}
+                                {errors?.date && <span className="text-red-500">{errors?.date}</span>}
                             </div>
                             <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
-                                <label className="control-label fs-4">
+                                <label className="block mb-2 text-sm font-medium text-gray-900">
                                     <span style={{color: "red"}}>*</span>
                                     &nbsp;Số điện thoại
                                 </label>
@@ -279,13 +279,13 @@ const Register = () => {
                                         style={{height: "30px"}}
                                         id="txtDienThoai"
                                         name="phone_number"
-                                        className="form-control fs-4"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         placeholder="Số điện thoại"
                                         onChange={handleChange}
                                         value={formData.phone_number}
                                     />
                                 </div>
-                                {errors?.phone_number && <span className={"text-danger"}>{errors?.phone_number}</span>}
+                                {errors?.phone_number && <span className="text-red-500">{errors?.phone_number}</span>}
                             </div>
                         </div>
                         <div className="clearfix"></div>
