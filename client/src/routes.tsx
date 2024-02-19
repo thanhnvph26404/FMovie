@@ -5,6 +5,7 @@ import {Dashboard, HomePage, PageNotFound} from "./pages";
 import Login from "./pages/auth/login/Login";
 import Register from "./pages/auth/register/Register";
 
+import "./index.css"
 export const router = createBrowserRouter([
     {
         path: "/",

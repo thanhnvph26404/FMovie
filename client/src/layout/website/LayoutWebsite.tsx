@@ -1,5 +1,5 @@
 import React from 'react'
-import './LayoutWebsite.scss'
+
 import { Outlet } from 'react-router-dom'
 import { HeaderWebsite, FooterWebsite } from '../../components'
 

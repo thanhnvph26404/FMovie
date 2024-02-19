@@ -20,7 +20,10 @@ a{
     box-shadow: none !important;
 }
 
-//.form-control:not(:focus) {
-//    border-color: #ced4da;
-//}
-// using rem: 1rem = 10px, 
+// using rem: 1rem = 10px,
+
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
