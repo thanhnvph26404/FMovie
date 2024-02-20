@@ -1,0 +1,29 @@
+//color
+
+$primary: #03599d;
+$secondary: #333; 
+$black: #000;
+
+
+//size
+
+
+
+//font family
+
+
+// root
+:root{
+    --primary-color: #{$primary};
+    --secondary-color: #{$secondary};
+    --text-black: #{$black};
+}
+
+
+// media query
+$breakpoint-down: ('xs': 'screen and (max-width: 329px)',
+'sm': 'screen and (max-width: 478px)',
+'md': 'screen and (max-width: 767px)',
+'lg': 'screen and (max-width: 1024px)',
+'xl': 'screen and (max-width: 1280px)',
+) !default;
