@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './HomePage.scss';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+import './HomePage.scss'
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 
