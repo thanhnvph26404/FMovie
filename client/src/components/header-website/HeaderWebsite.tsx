@@ -1,20 +1,21 @@
-import React from 'react'
+// import React from 'react'
 import { NavLink } from 'react-router-dom'
+import './HeaderWebsite.scss'
 
 const HeaderWebsite = () => {
-  const [ isLogged, setIsLogged ] = React.useState<boolean>(true);
+  // const [ isLogged, setIsLogged ] = React.useState<boolean>(true);
   const Menu =[
     {
       title:"Lịch Chiếu Theo Rạp",
-      linkTo:""
+      linkTo:"/lich-chieu"
     },
     {
       title:"Phim",
-      linkTo:""
+      linkTo:"/phim"
     },
     {
       title:"Rạp",
-      linkTo:""
+      linkTo:"/thong-tin-rap"
     },
     {
       title:"Giá Vé",
@@ -35,66 +36,134 @@ const HeaderWebsite = () => {
   ]
   return (
     <div className='w-full h-full '>
-      <div className='bg-black h-[32px]  w-full flex justify-around items-center'>
-        <div></div>
-        <div></div>
-        <div className='text-white text-[15px]'>
-          <span className='mx-1'>Đăng nhập</span>
-          <span className='mx-1'>|</span>
-          <span className='mx-1'>Đăng ký</span>
-        </div>
-      </div>
-    <div className='bg-white  py-2 shadow-md'>
-      <div className='w-full flex justify-center items-center space-x-24'>
-        <div>
-          <div>
-            <img src='https://betacinemas.vn/Assets/Common/logo/logo.png' />
-          </div>
-        </div>
-        <div>
-          <div> 
-            <select id="countries" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full py-1 px-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-              <option selected>Chọn Rạp</option>
-              <option value="US">Mỹ Đình</option>
-              <option value="CA">Thanh Xuân</option>
-              <option value="FR">Nha Trang</option>
-              <option value="DE">Hạ Long</option>
-            </select>
-          </div>  
-        </div>
-        <div className=''>
-          <div className='md:hidden block'>
-            <img  
-            onClick={()=>setIsLogged(!isLogged)}
-            className='w-8 mr-10' src='https://static.vecteezy.com/system/resources/previews/010/896/688/original/menu-icon-sign-symbol-design-free-png.png' />
+      <div className="pre-header">
+          <div className="container">
+              <div className="row">
+                  <div className="col-md-16 col-sm-16 additional-nav">
+                      <div className="pull-right padding-left-10">
+                          <a href="#"></a>
                       </div>
-        <div className="hidden w-full md:block md:w-auto " id="navbar-default">
-      <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-4 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700 v">
-       {Menu?.map((item)=>{
-        return (<>
-         <li>
-          <NavLink to={item?.linkTo} className="block font-bold py-2 uppercase text-md text-white  rounded md:bg-transparent md:text-black md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">{item?.title}</NavLink>
-        </li>
-        </>)
-       })}
-      
-      </ul>
-    </div>
-    
-        </div>
+                      <ul className="list-unstyled list-inline pull-right">
+                          <li><a href="#">Đăng nhập</a></li>
+                          <li><a href="#">Đăng ký</a></li>
+                      </ul>
+                  </div>
+              </div>
+          </div>        
       </div>
-    </div>
-    <div className={`${isLogged ? "hidden" : "block"} md:hidden block w-full  md:w-auto `} id="navbar-default">
-      <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-4 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-      {Menu?.map((item)=>{
-        return (<>
-         <li>
-          <NavLink to={item?.linkTo} className="block font-bold py-2 uppercase text-md   rounded md:bg-transparent text-black md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">{item?.title}</NavLink>
-        </li>
-        </>)
-       })}
-      </ul>
-    </div>
+      <div className="header">
+          <div className="container">
+              <div className="row">
+              <div className="col-md-2">
+                <NavLink className="site-logo" to="/">
+                  <img style={{ width: '100px' }} src="https://i.gyazo.com/f42624877a99b415498194df29e2e45b.png" alt="" />
+                </NavLink>
+              </div>
+              <div className="col-md-2">
+                <div className="top-cart-block">
+                    <div className="top-cart-info">
+                        <div className="header-navigation menu-cinema">
+                            <ul>
+                                <li className="dropdown">
+                                    <a className="dropdown-toggle" data-toggle="dropdown" data-target="#" href="javascript:;">Beta Thái Nguyên <i className="fa fa-angle-down"></i>
+                                    </a>
+                                    <ul className="dropdown-menu">
+                                      <li className="dropdown-submenu">
+                                          <a>Hà Nội</a>
+                                          <ul className="dropdown-menu" role="menu">
+                                                  <li><a>Beta Thanh Xuân</a></li>
+                                                  <li><a>Beta Mỹ Đình</a></li>
+                                                  <li><a>Beta Đan Phượng</a></li>
+                                                  <li><a>Beta Giải Phóng</a></li>
+                                          </ul>
+                                      </li>
+                                      <li className="dropdown-submenu">
+                                          <a>TP. Hồ Chí Minh</a>
+                                          <ul className="dropdown-menu" role="menu">
+                                                  <li><a>Beta Quang Trung</a></li>
+                                                  <li><a>Beta Trần Quang Khải</a></li>
+                                          </ul>
+                                      </li>
+                                      <li className="dropdown-submenu">
+                                          <a>Bắc Giang</a>
+                                          <ul className="dropdown-menu" role="menu">
+                                            <li><a>Beta Bắc Giang</a></li>
+                                          </ul>
+                                      </li>
+                                      <li className="dropdown-submenu">
+                                          <a>Đồng Nai</a>
+                                          <ul className="dropdown-menu" role="menu">
+                                            <li><a>Beta Biên Hòa</a></li>
+                                              <li><a>Beta Long Khánh</a></li>
+                                          </ul>
+                                      </li>
+                                      <li className="dropdown-submenu">
+                                          <a>Khánh Hòa</a>
+                                          <ul className="dropdown-menu" role="menu">
+                                            <li><a>Beta Nha Trang</a></li>
+                                          </ul>
+                                      </li>
+                                      <li className="dropdown-submenu">
+                                          <a>Thái Nguyên</a>
+                                          <ul className="dropdown-menu" role="menu">
+                                            <li><a>Beta Thái Nguyên</a></li>
+                                          </ul>
+                                      </li>
+                                      <li className="dropdown-submenu">
+                                          <a>Thanh Hóa</a>
+                                          <ul className="dropdown-menu" role="menu">
+                                                  <li><a>Beta Thanh Hóa</a></li>
+                                          </ul>
+                                      </li>
+                                      <li className="dropdown-submenu">
+                                          <a>Bà Rịa - Vũng Tàu</a>
+                                          <ul className="dropdown-menu" role="menu">
+                                                  <li><a>Beta Phú Mỹ</a></li>
+                                                  <li><a>Beta Hồ Tràm</a></li>
+                                          </ul>
+                                      </li>
+                                      <li className="dropdown-submenu">
+                                          <a>Bình Dương</a>
+                                          <ul className="dropdown-menu" role="menu">
+                                            <li><a>Beta Empire Bình Dương</a></li>
+                                            <li><a>Beta Tân Uyên</a></li>
+                                          </ul>
+                                      </li>
+                                      <li className="dropdown-submenu">
+                                          <a>Kiên Giang</a>
+                                          <ul className="dropdown-menu" role="menu">
+                                              <li><a>Beta TRMall Phú Quốc</a></li>
+                                          </ul>
+                                      </li>
+                                      <li className="dropdown-submenu">
+                                          <a>Lào Cai</a>
+                                          <ul className="dropdown-menu" role="menu">
+                                              <li>
+                                                <a>Beta Lào Cai</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <div className="col-md-8">
+                <div className="header-navigation pull-right list-menu">
+                    <ul>
+                      {Menu?.map((item, index) => (
+                        <li key={index}>
+                            <NavLink to={item?.linkTo} className='item'>{item?.title}</NavLink>
+                        </li>
+                      ))}
+                    </ul>
+                </div>
+              </div>
+              </div>
+          </div>
+      </div>
     </div>
   )
 }

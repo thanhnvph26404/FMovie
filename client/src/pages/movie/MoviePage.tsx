@@ -1,16 +1,7 @@
 import React, { useState } from 'react';
-import './HomePage.scss';
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+import './MoviePage.scss';
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
-
-const HomePage: React.FC = () => {
+const MoviePage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'dangchieu' | 'sapchieu' | 'dacbiet'>('dangchieu');
 
   const handleTabClick = (tabId: 'dangchieu' | 'sapchieu' | 'dacbiet') => {
@@ -18,24 +9,7 @@ const HomePage: React.FC = () => {
   };
 
   return (
-    <div className="container homepage">
-      <Swiper
-          className='my-4'
-          modules={[Navigation, Pagination, Scrollbar, A11y]}
-          slidesPerView={1}
-          navigation
-          pagination={{ clickable: true }}
-          scrollbar={{ draggable: true }}
-          onSwiper={(swiper) => console.log(swiper)}
-          onSlideChange={() => console.log('slide change')}
-      >
-          <SwiperSlide>
-              <img src="https://files.betacorp.vn/files/ecm/2024/02/21/1702x621-2-163855-210224-73.png" alt="" />
-          </SwiperSlide>
-          <SwiperSlide>
-              <img src="https://files.betacorp.vn/files/ecm/2024/01/23/0124-movie-galaxy-merchant-tet-1702x621-113434-230124-48.jpg" alt="" />
-          </SwiperSlide>
-      </Swiper>
+    <div className="container moviepage">
       <div className="text-center">
         <ul className="nav nav-tabs tab-films">
           <li className={activeTab === 'sapchieu' ? 'active' : ''}>
@@ -123,4 +97,4 @@ const HomePage: React.FC = () => {
   );
 };
 
-export default HomePage;
+export default MoviePage;
