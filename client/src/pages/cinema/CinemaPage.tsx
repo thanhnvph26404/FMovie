@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
-import './RapPage.scss';
 
-const RapPage: React.FC = () => {
+
+const CinemaPage: React.FC = () => {
   return (
     <div className='container'>
       <div className="row">
@@ -40,4 +40,4 @@ const RapPage: React.FC = () => {
   );
 };
 
-export default RapPage;
+export default CinemaPage;

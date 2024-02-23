@@ -22,9 +22,7 @@ a{
 
 
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
 // 
 .flex{
     display: flex;
@@ -35,3 +33,6 @@ a{
 .justify-center{
     justify-content: center;
 }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

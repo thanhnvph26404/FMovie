@@ -1,10 +1,8 @@
 import { createBrowserRouter} from "react-router-dom";
 import LayoutAdmin from "./layout/admin/LayoutAdmin";
 import LayoutWebsite from "./layout/website/LayoutWebsite";
-import { Dashboard, HomePage, PageNotFound } from "./pages";
-import RapPage from "./pages/rap/RapPage";
-import SchedulePage from "./pages/schedule/Schedule";
-import MoviePage from "./pages/movie/MoviePage";
+import { CinemaPage, Dashboard, HomePage, MoviePage, PageNotFound, SchedulePage } from "./pages";
+
 export const router = createBrowserRouter([
     {
         path: "/",
@@ -17,7 +15,7 @@ export const router = createBrowserRouter([
         ],
     },
     {
-        path: "/phim",
+        path: "/movie",
         element: (
             <LayoutWebsite/>
         ),
@@ -27,17 +25,17 @@ export const router = createBrowserRouter([
         ],
     },
     {
-        path: "/thong-tin-rap",
+        path: "/cinema",
         element: (
             <LayoutWebsite/>
         ),
         children: [
-            { index: true, element: <RapPage /> },
+            { index: true, element: <CinemaPage /> },
             
         ],
     },
     {
-        path: "/lich-chieu",
+        path: "/schedule",
         element: (
             <LayoutWebsite/>
         ),

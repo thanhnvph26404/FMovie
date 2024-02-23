@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import './Schedule.scss';
+import './index.scss';
 import { FaTag } from 'react-icons/fa';
 import { IoTime } from 'react-icons/io5';
 // Import Swiper React components
