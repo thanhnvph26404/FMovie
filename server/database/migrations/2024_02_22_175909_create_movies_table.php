@@ -20,9 +20,14 @@ return new class extends Migration
             $table->string('actor');
             $table->date('releaseDate');
             $table->string('language');
-            $table->string('genre');
+
+            $table->unsignedBigInteger('id_category')->nullable();
+            $table->foreign('id_category')->references('id')->on('categories');
+
             $table->string('image');
-            $table->string('idTrailer');
+            
+            $table->unsignedBigInteger('id_trailer')->nullable();
+            $table->foreign('id_trailer')->references('id')->on('trailers');
             $table->timestamps();
         });
     }

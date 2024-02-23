@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vouchers', function (Blueprint $table) {
+        Schema::create('transaction_voucher_links', function (Blueprint $table) {
             $table->id();
-            $table->string('code');
-            $table->string('discount');
-            $table->date('startDate');
-            $table->date('endDate');
+            $table->unsignedBigInteger('id_voucher')->nullable();
+            $table->foreign('id_voucher')->references('id')->on('vouchers');
+            
+            $table->unsignedBigInteger('id_transaction')->nullable();
+            $table->foreign('id_transaction')->references('id')->on('transactions');
             $table->integer('quantity');
-            $table->enum('condition', ['Còn voucher', 'Hết voucher']);
-
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vouchers');
+        Schema::dropIfExists('transaction_voucher_links');
     }
 };

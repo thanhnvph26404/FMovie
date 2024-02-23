@@ -8,9 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Movies extends Model
 {
     use HasFactory;
-    public $timestamp = false;
     protected $fillable = [
-        'code',
         'name',
         'description',
         'time',
@@ -18,8 +16,18 @@ class Movies extends Model
         'actor',
         'releaseDate',
         'language',
-        'genre',
+        'id_category',
         'image',
-        'idTrailer',
+        'id_trailer'
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'id_category');
+    }
+
+    public function trailer()
+    {
+        return $this->belongsTo(Trailers::class, 'id_trailer');
+    }
 }

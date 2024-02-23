@@ -5,14 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MovieGenre extends Model
+class Category extends Model
 {
-    protected $table = 'moviegenre';
-
     use HasFactory;
-    public $timestamp = false;
+
     protected $fillable = [
-        'idMovie',
-        'idGenre'
+        'name',
     ];
 }
