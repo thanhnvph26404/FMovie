@@ -11,15 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vouchers', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->string('code');
-            $table->string('discount');
-            $table->date('startDate');
-            $table->date('endDate');
-            $table->integer('quantity');
-            $table->enum('condition', ['Còn voucher', 'Hết voucher']);
-
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -29,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vouchers');
+        Schema::dropIfExists('categories');
     }
 };

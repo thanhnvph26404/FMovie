@@ -17,10 +17,10 @@ class TransactionVoucherLink extends Model
 
     public function voucher()
     {
-        return $this->belongsTo(Voucher::class);
+        return $this->belongsTo(Voucher::class, 'id_voucher');
     }
     public function transaction()
     {
-        return $this->belongsTo(Transaction::class);
+        return $this->belongsTo(Transaction::class, 'id_transaction');
     }
 }

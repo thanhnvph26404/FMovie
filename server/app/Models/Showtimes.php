@@ -6,16 +6,33 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Showtimes extends Model
-{    protected $table = 'Showtimes';
-
+{    
     use HasFactory;
-    public $timestamp = false;
     protected $fillable = [
-        'code',
-        'discount',
-        'startDate',
-        'endDate',
-        'quantity',
-        'condition'
+        'id_movie',
+        'id_cinema',
+        'showDate',
+        'showTime',
+        'actor',
+        'releaseDate',
+        'language',
+        'genre',
+        'id_room'
     ];
+
+    public function movie()
+    {
+        return $this->belongsTo(Movies::class, 'id_movie');
+    }
+
+    public function cinema()
+    {
+        return $this->belongsTo(Cinema::class, 'id_cinema');
+    }
+
+    public function room()
+    {
+        return $this->belongsTo(Room::class, 'id_room');
+    }
 }
+

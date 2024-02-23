@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_voucher')->nullable();
             $table->foreign('id_voucher')->references('id')->on('vouchers');
+            
             $table->unsignedBigInteger('id_transaction')->nullable();
             $table->foreign('id_transaction')->references('id')->on('transactions');
             $table->integer('quantity');

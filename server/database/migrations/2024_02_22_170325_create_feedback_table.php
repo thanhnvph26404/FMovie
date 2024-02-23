@@ -11,15 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('transactions', function (Blueprint $table) {
+        Schema::create('feedback', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_movie')->nullable();
+            $table->foreign('id_movie')->references('id')->on('movies');
             $table->unsignedBigInteger('id_user')->nullable();
             $table->foreign('id_user')->references('id')->on('users');
-            
-            $table->integer('totalQuantity');
-            $table->enum('paymentMethod', ['Tiền mặt', 'Chuyển khoản']);
-            $table->time('time', $precision = 0);
-            $table->enum('paymentStatus', ['Đã thanh toán', 'Chưa thanh toán']);
+
+            $table->decimal('rate', 5, 2);
+            $table->longText('content')->nullable();
+            $table->date('date');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('transactions');
+        Schema::dropIfExists('feedback');
     }
 };

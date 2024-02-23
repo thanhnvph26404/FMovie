@@ -11,15 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('transactions', function (Blueprint $table) {
+        Schema::create('tickets', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_user')->nullable();
             $table->foreign('id_user')->references('id')->on('users');
-            
-            $table->integer('totalQuantity');
-            $table->enum('paymentMethod', ['Tiền mặt', 'Chuyển khoản']);
-            $table->time('time', $precision = 0);
-            $table->enum('paymentStatus', ['Đã thanh toán', 'Chưa thanh toán']);
+
+            $table->integer('quantity');
+            $table->decimal('price', 10, 2);
+
+            $table->unsignedBigInteger('id_seat')->nullable();
+            $table->foreign('id_seat')->references('id')->on('seats');
+            $table->unsignedBigInteger('id_showtime')->nullable();
+            $table->foreign('id_showtime')->references('id')->on('showtimes');
             $table->timestamps();
         });
     }
@@ -29,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('transactions');
+        Schema::dropIfExists('tickets');
     }
 };
