@@ -1,8 +1,13 @@
-import { createBrowserRouter} from "react-router-dom";
+import {createBrowserRouter} from "react-router-dom";
 import LayoutAdmin from "./layout/admin/LayoutAdmin";
 import LayoutWebsite from "./layout/website/LayoutWebsite";
 import { CinemaPage, Dashboard, HomePage, MoviePage, PageNotFound, SchedulePage } from "./pages";
 
+
+import Login from "./pages/auth/login/Login";
+import Register from "./pages/auth/register/Register";
+
+import "./index.css"
 export const router = createBrowserRouter([
     {
         path: "/",
@@ -10,8 +15,9 @@ export const router = createBrowserRouter([
             <LayoutWebsite/>
         ),
         children: [
-            { index: true, element: <HomePage /> },
-            
+            {index: true, element: <HomePage/>},
+            {path: "/login", element: <Login/>},
+            {path: "/register", element: <Register/>}
         ],
     },
     {
@@ -48,13 +54,13 @@ export const router = createBrowserRouter([
         path: "/admin",
         children: [
             {
-                element: <LayoutAdmin />,
+                element: <LayoutAdmin/>,
                 children: [
-            { index: true, element: <Dashboard /> },
-                    
+                    {index: true, element: <Dashboard/>},
+
                 ],
             },
         ],
     },
-    { path: "*", element: <PageNotFound/> },
+    {path: "*", element: <PageNotFound/>},
 ]);
