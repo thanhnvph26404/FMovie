@@ -2,7 +2,6 @@ import { createBrowserRouter} from "react-router-dom";
 import LayoutAdmin from "./layout/admin/LayoutAdmin";
 import LayoutWebsite from "./layout/website/LayoutWebsite";
 import { Dashboard, HomePage, PageNotFound } from "./pages";
-import "./index.css"
 import RapPage from "./pages/rap/RapPage";
 import SchedulePage from "./pages/schedule/Schedule";
 import MoviePage from "./pages/movie/MoviePage";
