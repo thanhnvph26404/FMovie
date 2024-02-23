@@ -7,7 +7,7 @@ import { CinemaPage, Dashboard, HomePage, MoviePage, PageNotFound, SchedulePage 
 import Login from "./pages/auth/login/Login";
 import Register from "./pages/auth/register/Register";
 
-import "./index.css"
+
 export const router = createBrowserRouter([
     {
         path: "/",
