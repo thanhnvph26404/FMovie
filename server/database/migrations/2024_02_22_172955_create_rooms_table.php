@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vouchers', function (Blueprint $table) {
+        Schema::create('rooms', function (Blueprint $table) {
             $table->id();
-            $table->string('code');
-            $table->string('discount');
-            $table->date('startDate');
-            $table->date('endDate');
+            $table->unsignedBigInteger('id_cinema')->nullable();
+            $table->foreign('id_cinema')->references('id')->on('cinemas');
+
             $table->integer('quantity');
-            $table->enum('condition', ['Còn voucher', 'Hết voucher']);
 
             $table->timestamps();
         });
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vouchers');
+        Schema::dropIfExists('rooms');
     }
 };

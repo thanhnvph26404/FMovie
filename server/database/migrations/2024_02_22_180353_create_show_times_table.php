@@ -13,15 +13,20 @@ return new class extends Migration
     {
         Schema::create('showtimes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('idMovie');
-            $table->unsignedBigInteger('idCinema');
-            $table->unsignedBigInteger('idRoom');
+            $table->unsignedBigInteger('id_movie')->nullable();
+            $table->foreign('id_movie')->references('id')->on('movies');
+            $table->unsignedBigInteger('id_cinema')->nullable();
+            $table->foreign('id_cinema')->references('id')->on('cinemas');
+
             $table->date('showDate');
             $table->date('showTime');
             $table->string('actor');
             $table->date('releaseDate');
             $table->string('language');
             $table->string('genre');
+            
+            $table->unsignedBigInteger('id_room')->nullable();
+            $table->foreign('id_room')->references('id')->on('rooms');
             $table->timestamps();
         });
     }

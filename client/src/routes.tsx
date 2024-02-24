@@ -1,7 +1,14 @@
-import { createBrowserRouter} from "react-router-dom";
+import {createBrowserRouter} from "react-router-dom";
 import LayoutAdmin from "./layout/admin/LayoutAdmin";
 import LayoutWebsite from "./layout/website/LayoutWebsite";
 import { CinemaPage, Dashboard, HomePage, MoviePage, PageNotFound, SchedulePage } from "./pages";
+
+
+import Login from "./pages/auth/login/Login";
+import Register from "./pages/auth/register/Register";
+import RapPage from "./pages/rap/RapPage";
+import TicketPage from "./pages/ticket/TicketPage";
+
 
 export const router = createBrowserRouter([
     {
@@ -10,8 +17,9 @@ export const router = createBrowserRouter([
             <LayoutWebsite/>
         ),
         children: [
-            { index: true, element: <HomePage /> },
-            
+            {index: true, element: <HomePage/>},
+            {path: "/login", element: <Login/>},
+            {path: "/register", element: <Register/>}
         ],
     },
     {
@@ -45,16 +53,46 @@ export const router = createBrowserRouter([
         ],
     },
     {
+        path: "/schedule/:id",
+        element: (
+            <LayoutWebsite/>
+        ),
+        children: [
+            { index: true, element: <SchedulePage /> },
+            
+        ],
+    },
+    {
+        path: "/ticket/:id",
+        element: (
+            <LayoutWebsite/>
+        ),
+        children: [
+            { index: true, element: <TicketPage /> },
+            
+        ],
+    },
+    {
         path: "/admin",
         children: [
             {
-                element: <LayoutAdmin />,
+                element: <LayoutAdmin/>,
                 children: [
-            { index: true, element: <Dashboard /> },
-                    
+                    {index: true, element: <Dashboard/>},
+
                 ],
             },
         ],
     },
-    { path: "*", element: <PageNotFound/> },
+    {
+        path: "/thong-tin-rap",
+        element: (
+            <LayoutWebsite/>
+        ),
+        children: [
+            { index: true, element: <RapPage /> },
+            
+        ],
+    },
+    {path: "*", element: <PageNotFound/>},
 ]);

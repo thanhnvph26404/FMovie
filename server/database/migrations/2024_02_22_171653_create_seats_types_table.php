@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('trailers', function (Blueprint $table) {
+        Schema::create('seats_types', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('idMovie');
-            $table->string('url');
-            $table->date('dateShow');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -25,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('trailers');
+        Schema::dropIfExists('seats_types');
     }
 };
