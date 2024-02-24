@@ -8,6 +8,7 @@ import Login from "./pages/auth/login/Login";
 import Register from "./pages/auth/register/Register";
 import RapPage from "./pages/rap/RapPage";
 import TicketPage from "./pages/ticket/TicketPage";
+import DetailMoviePage from "./pages/detailMovie/DetailMoviePage";
 
 
 export const router = createBrowserRouter([
@@ -58,7 +59,7 @@ export const router = createBrowserRouter([
             <LayoutWebsite/>
         ),
         children: [
-            { index: true, element: <SchedulePage /> },
+            { index: true, element: <DetailMoviePage /> },
             
         ],
     },
