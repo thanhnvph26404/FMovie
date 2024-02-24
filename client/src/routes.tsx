@@ -25,7 +25,7 @@ export const router = createBrowserRouter([
         ],
     },
     {
-        path: "/cinema",
+        path: "/",
         element: (
             <LayoutWebsite/>
         ),
@@ -34,7 +34,7 @@ export const router = createBrowserRouter([
             
         ],
     },
-    {
+    {   
         path: "/schedule",
         element: (
             <LayoutWebsite/>
