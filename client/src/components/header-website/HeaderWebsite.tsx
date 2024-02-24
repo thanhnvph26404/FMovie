@@ -7,7 +7,7 @@ const HeaderWebsite = () => {
   const Menu =[
     {
       title:"Lịch Chiếu Theo Rạp",
-      linkTo:"/lich-chieu"
+      linkTo:"/schedule"
     },
     {
       title:"Phim",
