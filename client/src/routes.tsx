@@ -6,6 +6,9 @@ import { CinemaPage, Dashboard, HomePage, MoviePage, PageNotFound, SchedulePage 
 
 import Login from "./pages/auth/login/Login";
 import Register from "./pages/auth/register/Register";
+import RapPage from "./pages/rap/RapPage";
+import TicketPage from "./pages/ticket/TicketPage";
+import DetailMoviePage from "./pages/detailMovie/DetailMoviePage";
 
 
 export const router = createBrowserRouter([
@@ -31,7 +34,7 @@ export const router = createBrowserRouter([
         ],
     },
     {
-        path: "/cinema",
+        path: "/",
         element: (
             <LayoutWebsite/>
         ),
@@ -40,13 +43,33 @@ export const router = createBrowserRouter([
             
         ],
     },
-    {
+    {   
         path: "/schedule",
         element: (
             <LayoutWebsite/>
         ),
         children: [
             { index: true, element: <SchedulePage /> },
+            
+        ],
+    },
+    {
+        path: "/schedule/:id",
+        element: (
+            <LayoutWebsite/>
+        ),
+        children: [
+            { index: true, element: <DetailMoviePage /> },
+            
+        ],
+    },
+    {
+        path: "/ticket/:id",
+        element: (
+            <LayoutWebsite/>
+        ),
+        children: [
+            { index: true, element: <TicketPage /> },
             
         ],
     },
@@ -60,6 +83,16 @@ export const router = createBrowserRouter([
 
                 ],
             },
+        ],
+    },
+    {
+        path: "/thong-tin-rap",
+        element: (
+            <LayoutWebsite/>
+        ),
+        children: [
+            { index: true, element: <RapPage /> },
+            
         ],
     },
     {path: "*", element: <PageNotFound/>},
