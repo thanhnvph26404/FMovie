@@ -47,7 +47,7 @@ const SchedulePage: React.FC = () => {
                             <img className='rounded-4' src="https://files.betacorp.vn/files/media/images/2024/01/29/maiiii-135926-290124-71.jpg" alt="" />
                         </div>
                         <div className="col-lg-9 col-md-9 col-12 content">
-                            <h2 className="fw-bold title">Mai</h2>
+                            <h2 className="fw-bold title"><NavLink to="/schedule/123">Mai</NavLink></h2>
                             <div className="d-flex align-items-center mb-4">
                                 <span className='d-flex align-items-center fw-bold pr-4'><FaTag style={{ color: '#337ab7' }} /> Tâm lý tình cảm</span>
                                 <span className='d-flex align-items-center fw-bold'><IoTime style={{ color: '#337ab7' }} /> 131 phút</span>
@@ -55,23 +55,23 @@ const SchedulePage: React.FC = () => {
                             <span className="subtitle">2D phụ đề</span>
                             <ul className="list-time mt-2">
                                 <li className="item-time">
-                                    <span>9:30</span>
+                                    <NavLink to="/ticket/123" className='text-decoration-none text-black'><span>9:30</span></NavLink>
                                     <span>164 ghế trống</span>
                                 </li>
                                 <li className="item-time">
-                                    <span>9:30</span>
+                                    <NavLink to="/ticket/123" className='text-decoration-none text-black'><span>9:30</span></NavLink>
                                     <span>164 ghế trống</span>
                                 </li>
                                 <li className="item-time">
-                                    <span>9:30</span>
+                                    <NavLink to="/ticket/123" className='text-decoration-none text-black'><span>9:30</span></NavLink>
                                     <span>164 ghế trống</span>
                                 </li>
                                 <li className="item-time">
-                                    <span>9:30</span>
+                                    <NavLink to="/ticket/123" className='text-decoration-none text-black'><span>9:30</span></NavLink>
                                     <span>164 ghế trống</span>
                                 </li>
                                 <li className="item-time">
-                                    <span>9:30</span>
+                                    <NavLink to="/ticket/123" className='text-decoration-none text-black'><span>9:30</span></NavLink>
                                     <span>164 ghế trống</span>
                                 </li>
                             </ul>

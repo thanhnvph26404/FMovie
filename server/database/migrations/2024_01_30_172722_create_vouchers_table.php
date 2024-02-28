@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('startDate');
             $table->date('endDate');
             $table->integer('quantity');
-            $table->boolean('condition');
+            $table->enum('condition', ['Còn voucher', 'Hết voucher']);
 
             $table->timestamps();
         });
