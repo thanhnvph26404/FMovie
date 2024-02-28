@@ -7,10 +7,13 @@
 }
 
 html{
-    font-size: 62.5%;
     box-sizing: border-box;
 }
-
+body{
+    font-family: "Oswald", sans-serif;
+    font-style: normal;
+    font-optical-sizing: auto;
+}
 a{
     text-decoration: none;
 }
@@ -19,6 +22,17 @@ a{
 
 
 
+
+// 
+.flex{
+    display: flex;
+}
+.items-center{
+    align-items: center;
+}
+.justify-center{
+    justify-content: center;
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

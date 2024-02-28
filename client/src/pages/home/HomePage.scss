@@ -1,0 +1,51 @@
+.title-tab {
+    font-size: 25px;
+    margin-bottom: 0;
+}
+
+.tab-films{
+    justify-content: center;
+}
+
+.tab-films li{
+    padding: 10px;
+}
+
+.tab-films a{
+    text-decoration: none;
+    display: block;
+    color: #333;
+}
+
+.homepage .tab-content img{
+    width: 100%;
+    border-radius: 20px;
+}
+
+.homepage .tab-content{
+    padding-top: 20px;
+}
+
+.tab-films .active{
+    border-bottom: 2px solid;
+}
+
+.homepage .tab-content p{
+    margin-bottom: 0px;
+}
+
+.title-films {
+    color: #337ab7;
+    font-weight: bold;
+    font-size: 23px;
+}
+
+.homepage button {
+    background: linear-gradient(to right, #0a64a7 0%, #258dcf 51%, #3db1f3 100%) !important;
+    width: 100%;
+    padding: 7px;
+    text-transform: uppercase;
+    border-radius: 9px;
+    font-weight: bold;
+    color: #fff;
+}

@@ -1,11 +1,15 @@
 import {createBrowserRouter} from "react-router-dom";
 import LayoutAdmin from "./layout/admin/LayoutAdmin";
 import LayoutWebsite from "./layout/website/LayoutWebsite";
-import {Dashboard, HomePage, PageNotFound} from "./pages";
+import { CinemaPage, Dashboard, HomePage, MoviePage, MovieTypeAddPage, MovieTypeEditPage, MovieTypeListPage, PageNotFound, SchedulePage } from "./pages";
+
+
 import Login from "./pages/auth/login/Login";
 import Register from "./pages/auth/register/Register";
+import TicketPage from "./pages/ticket/TicketPage";
+import DetailMoviePage from "./pages/detailMovie/DetailMoviePage";
 
-import "./index.css"
+
 export const router = createBrowserRouter([
     {
         path: "/",
@@ -14,8 +18,13 @@ export const router = createBrowserRouter([
         ),
         children: [
             {index: true, element: <HomePage/>},
-            {path: "/login", element: <Login/>},
-            {path: "/register", element: <Register/>}
+            {path: "login", element: <Login/>},
+            { path: "register", element: <Register /> },
+            { path: "movie", element: <MoviePage /> },
+            { path: "movie/:id", element: <DetailMoviePage /> },
+            { path: "schedule", element: <SchedulePage /> },
+            { path: "cinema", element: <CinemaPage /> },
+            { path: "ticket/:id", element: <TicketPage/>}
         ],
     },
     {
@@ -24,8 +33,11 @@ export const router = createBrowserRouter([
             {
                 element: <LayoutAdmin/>,
                 children: [
-                    {index: true, element: <Dashboard/>},
-
+                    { index: true, element: <Dashboard /> },
+                    { path: "movie-type", element: <MovieTypeListPage/>},
+                    { path: "movie-type/add", element: <MovieTypeAddPage /> },
+                    { path: "movie-type/edit/:id", element: <MovieTypeEditPage/>},
+                    
                 ],
             },
         ],

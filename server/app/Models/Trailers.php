@@ -7,15 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Trailers extends Model
 {
-    protected $table = 'Trailers';
     use HasFactory;
-    public $timestamp = false;
+
     protected $fillable = [
-        'code',
-        'discount',
-        'startDate',
-        'endDate',
-        'quantity',
-        'condition'
+        'url',
+        'dateShow'
     ];
 }

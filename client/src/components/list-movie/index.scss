@@ -1,0 +1,154 @@
+@import "../../index.scss";
+// html{
+//     font-size: 62.5%;
+// }
+.list-movies {
+    margin: 0 14.5rem;
+    // nav
+    .list-movies__nav {
+        border-bottom: 1px solid #cecece;
+        list-style: none;
+        margin-bottom: 3rem;
+        .nav-item {
+            cursor: pointer;
+            font-size: 3rem;
+            color: var(--text-black);
+            text-transform: uppercase;
+            font-weight: 400;
+            line-height: 4rem;
+            padding: 2rem 1rem 1rem;
+            border-bottom: 0.4rem solid transparent;
+
+            &.active {
+                border-bottom: 0.4rem solid var(--primary-color);
+                color: var(--primary-color);
+            }
+        }
+    }
+
+    // list movie
+    .list-movie {
+        flex-wrap: wrap;
+        transition: all 0.3s ease-in-out;
+        .movie-item {
+            width: 25%;
+            padding: 0 3rem 3rem;
+
+            .movie-item__image {
+                border-radius: 2rem;
+                overflow: hidden;
+                position: relative;
+                max-height: 36rem;
+
+                img {
+                    height: 100%;
+                    width: 100%;
+                    object-fit: cover;
+                }
+                &:hover {
+                    .movie-item__overlay {
+                        opacity: 1;
+                        visibility: visible;
+                    }
+                }
+                .movie-item__overlay {
+                    opacity: 0;
+                    transition: opacity 0.5s ease, visibility 0.5s;
+                    position: absolute;
+
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0.2rem;
+                    background: rgba(0, 0, 0, 0.3);
+
+                    .play-icon {
+                        width: 5.5rem;
+                        height: 5.5rem;
+
+                        .icon {
+                            width: 5.5rem;
+                            height: 5.5rem;
+                            color: #fff;
+                        }
+                    }
+                }
+            }
+            .movie-item__bottom {
+                .movie-item__title {
+                    display: block;
+                    font-size: 1.8rem;
+                    font-weight: 600;
+                    margin: 0.5rem 0 1rem;
+                    color: var(--primary-color);
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    text-decoration: none;
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+                p {
+                    line-height: 2.1rem;
+                    color: var(--secondary-color);
+                    font-weight: 300;
+                    font-size: 1.5rem;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    strong {
+                        font-weight: 700;
+                        padding-right: 0.6rem;
+                    }
+                }
+                button {
+                    &:hover{
+                        opacity: .6;
+                    }
+                    cursor: pointer;
+                    position: relative;
+                    margin-top: 3rem;
+                    margin-bottom: 3rem;
+                    display: block;
+                    width: 100%;
+                    text-transform: uppercase;
+                    background-image: linear-gradient(
+                        to right,
+                        #0a64a7 0%,
+                        #258dcf 51%,
+                        #3db1f3 100%
+                    );
+                    font-size: 1.8rem;
+                    color: #fff;
+                    border-radius: 0.4rem;
+                    padding: 0.7rem 1.4rem;
+                    border: none;
+                    text-align: center;
+                    transition: 0.5s;
+                    background-size: 200% auto;
+                    font-weight: 500;
+                    letter-spacing: 0;
+                    overflow: hidden;
+                    .icon-ticket {
+                        opacity: 0.5;
+                        left: -0.6rem;
+                        width: 6rem;
+                        height: 6rem;
+                        position: absolute;
+                        top: 50%;
+                        transform: translateY(-50%) rotate(-45deg);
+
+                        .icon {
+                            width: 7rem;
+                            height: 7rem;
+                        }
+                    }
+
+                    
+                }
+            }
+        }
+    }
+}
+
