@@ -1,22 +1,22 @@
 <?php
 
 namespace App\Http\Controllers\api;
-
-use App\Models\Cinema;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Resources\CinemaResource;
 use Illuminate\Support\Facades\Validator;
 
-class CinemaController extends Controller
+use App\Http\Controllers\Controller;
+use App\Http\Resources\CategoryResource;
+use App\Models\Category;
+use Illuminate\Http\Request;
+
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $cinema = Cinema::all();
-        return CinemaResource::collection($cinema);
+        $category = Category::all();
+        return CategoryResource::collection($category);
     }
 
     /**
@@ -34,29 +34,25 @@ class CinemaController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'address' => 'required|string|max:255',
-            'screeningRooms' => 'required|integer|min:1',
-            'description' => 'required|string',
-            'phoneContact' => 'required|string',
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        $cinema = Cinema::create($request->all());
-        return new CinemaResource($cinema);
+        $category = Category::create($request->all());
+        return new CategoryResource($category);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id,Request $request)
     {
-        $cinema = Cinema::find($id);
-        if(!$cinema){
-            return response()->json(['message' => 'Không tìm thấy rạp']) ;
+        $category = Category::find($id);
+        if(!$category){
+            return response()->json(['message' => 'Không tìm thấy danh mục']) ;
         }
-        return new CinemaResource($cinema);
+        return new CategoryResource($category);
     }
 
     /**
@@ -74,21 +70,17 @@ class CinemaController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'address' => 'required|string|max:255',
-            'screeningRooms' => 'required|integer|min:1',
-            'description' => 'required|string',
-            'phoneContact' => 'required|string',
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        $cinema = Cinema::find($id);
-        if(!$cinema){
-            return response()->json(['message' => 'Không tìm thấy rạp']) ;
+        $category = Category::find($id);
+        if(!$category){
+            return response()->json(['message' => 'Không tìm thấy']) ;
         }
-        $cinema->update($request->all());
-        return new CinemaResource($cinema);
+        $category->update($request->all());
+        return new CategoryResource($category);
     }
 
     /**
@@ -96,11 +88,11 @@ class CinemaController extends Controller
      */
     public function destroy(string $id)
     {
-        $cinema = Cinema::find($id);
-        if(!$cinema){
-            return response()->json(['message' => 'Không tìm thấy rạp']) ;
+        $category = Category::find($id);
+        if(!$category){
+            return response()->json(['message' => 'Không tìm thấy']) ;
         }
-        $cinema->delete();
+        $category->delete();
         return response()->json(['message' => 'Xoá rạp thành công']) ;
     }
 }
