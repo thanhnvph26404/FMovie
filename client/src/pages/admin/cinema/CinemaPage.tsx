@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 type Props = {}
 
 const CinemaPage = (props: Props) => {
+  // fdj
   const handleDelete = async (id:string | number) => {
     
   }
