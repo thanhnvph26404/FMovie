@@ -1,7 +1,7 @@
 import {createBrowserRouter} from "react-router-dom";
 import LayoutAdmin from "./layout/admin/LayoutAdmin";
 import LayoutWebsite from "./layout/website/LayoutWebsite";
-import { CinemaPage, Dashboard, HomePage, MoviePage, MovieTypeAddPage, MovieTypeEditPage, MovieTypeListPage, PageNotFound, SchedulePage } from "./pages";
+import { CinemaPage, Dashboard, HomePage, MoviePage, MovieTypeAddPage, MovieTypeEditPage, MovieTypeListPage, PageNotFound, SchedulePage,CinemaPageAdmin, CinemaAddPage, CinemaEditPage } from "./pages";
 
 
 import Login from "./pages/auth/login/Login";
@@ -37,6 +37,9 @@ export const router = createBrowserRouter([
                     { path: "movie-type", element: <MovieTypeListPage/>},
                     { path: "movie-type/add", element: <MovieTypeAddPage /> },
                     { path: "movie-type/edit/:id", element: <MovieTypeEditPage/>},
+                    { path: "cinema", element: <CinemaPageAdmin />},
+                    { path: "cinema/add", element: <CinemaAddPage />},
+                    { path: "cinema/edit/:id", element: <CinemaEditPage />},
                     
                 ],
             },
