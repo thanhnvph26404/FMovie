@@ -1,7 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
- 
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -13,22 +12,46 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
+import { Category } from "@/services/categories/categories.interface"
+import { addNewCategory } from "@/services/categories/categoriesSlices"
+import { useAddCategoryMutation } from "@/services/categories/categories.services"
+import { useAppDispatch } from "@/app/hooks"
+import { useNavigate } from "react-router-dom"
+import { toastError, toastSuccess } from "@/hook/Toast"
 
-const MovieTypeAdd = () => {
+const MovieTypeAddPage = () => {
+
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+  const [addCategoryMutation, {isLoading}] = useAddCategoryMutation()
+
   const FormSchema = z.object({
-    username: z.string().min(2, {
+    name: z.string().min(2, {
       message: "Tên danh mục tối thiểu 2 kí tự",
     }),
   })
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      username: "",
+      name: "",
     },
   })
  
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    
+  const onSubmit = async (data: z.infer<typeof FormSchema>) => {
+    const formData = {
+      name: data.name,
+    }
+    try {
+      await addCategoryMutation(formData).unwrap().then(() => {
+        dispatch(addNewCategory(formData))
+      }).then(() => {
+        toastSuccess('Thêm danh mục thành công')
+      }).then(() => {
+        navigate('/admin/movie-type')
+      })
+    } catch (error:unknown) {
+      toastError('Thêm sản phẩm thất bại!')
+    }
   }
   return (
     <div>
@@ -37,7 +60,7 @@ const MovieTypeAdd = () => {
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
         <FormField
           control={form.control}
-          name="username"
+          name="name"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Tên danh mục</FormLabel>
@@ -55,4 +78,4 @@ const MovieTypeAdd = () => {
   )
 }
 
-export default MovieTypeAdd
+export default MovieTypeAddPage
