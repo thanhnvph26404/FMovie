@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from "react-router-dom";
 import './Login.scss';
 import * as Yup from "yup";
-import AuthService from "../../../services/AuthService";
+import AuthService from "../../../services/auth/AuthService.tsx";
 import {toast} from "react-toastify";
 import LocalStorageService from "../../../services/LocalStorageService.tsx";
 
@@ -118,7 +118,11 @@ const Login = () => {
 
                     type = "success";
 
-                    AuthService.login(access_token); // Set token to local storage
+                    let userInfoRes = await AuthService.getUserInfo(access_token);
+
+                    if (userInfoRes.status === 200) {
+                        AuthService.login(access_token, userInfoRes.data);
+                    }
 
                     // Redirect to home page
                     setTimeout(() => {
@@ -178,7 +182,7 @@ const Login = () => {
                     {message && <div className="alert alert-success text-center">{message}</div>}
                     <ul className="nav nav-tabs text-uppercase tab-information rounded-t-lg overflow-hidden grid grid-cols-2 justify-center border-b-2">
                         <li
-                            className="text-center py-3 bg-blue-900"
+                            className="text-center py-3 w-50 bg-blue-900"
                             style={{cursor: "pointer"}}
                         >
                             <a
@@ -190,7 +194,7 @@ const Login = () => {
                         </li>
                         <li
                             style={{cursor: "pointer"}}
-                            className="text-center py-3"
+                            className="text-center py-3 w-50"
                             onClick={() => navigate("/register")}
                         >
                             <a
@@ -205,7 +209,7 @@ const Login = () => {
                     <div className="p-5 rounded-bottom-4 bg-body-tertiary" id="register">
                         <div className="form-group row">
                             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
-                                <label className="block mb-2 text-sm font-medium text-gray-900">
+                                <label className="block mb-2 fs-4 font-medium text-gray-900">
                                     <span style={{color: "red"}}>*</span>
                                     &nbsp;Email
                                 </label>
@@ -215,7 +219,7 @@ const Login = () => {
                                         style={{height: "30px"}}
                                         id="txtEmail"
                                         name="email"
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 fs-4 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         placeholder="Email"
                                         onChange={handleChange}
                                         value={formData.email}
@@ -224,7 +228,7 @@ const Login = () => {
                                 {errors?.email && <span className="text-red-500">{errors?.email}</span>}
                             </div>
                             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
-                                <label className="block mb-2 text-sm font-medium text-gray-900">
+                                <label className="block mb-2 fs-4 font-medium text-gray-900">
                                     <span style={{color: "red"}}>*</span>
                                     &nbsp;Mật khẩu
                                 </label>
@@ -234,7 +238,7 @@ const Login = () => {
                                         style={{height: "30px"}}
                                         id="txtMatKhau"
                                         name="password"
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 fs-4 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         placeholder="Mật khẩu"
                                         onChange={handleChange}
                                         value={formData.password}

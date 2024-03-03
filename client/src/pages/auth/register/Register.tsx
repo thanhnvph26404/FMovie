@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 
 import './Register.scss';
 import * as Yup from 'yup';
-import AuthService from "../../../services/AuthService";
+import AuthService from "../../../services/auth/AuthService.tsx";
 import {toast} from "react-toastify";
 
 // Set rules for form validation
@@ -157,7 +157,7 @@ const Register = () => {
                 <div className="w-1/2 shadow-md rounded-lg">
                     <ul className="nav nav-tabs text-uppercase tab-information rounded-t-lg overflow-hidden grid grid-cols-2 justify-center border-b-2">
                         <li
-                            className="text-center py-3"
+                            className="text-center py-3 w-50"
                             style={{cursor: "pointer"}}
                             onClick={() => navigate("/login")}
                         >
@@ -170,7 +170,7 @@ const Register = () => {
                         </li>
                         <li
                             style={{cursor: "pointer"}}
-                            className="text-center py-3 bg-blue-900"
+                            className="text-center py-3 w-50 bg-blue-900"
                         >
                             <a
                                 className="fs-4 text-decoration-none text-white font-bold"
@@ -184,7 +184,7 @@ const Register = () => {
                     <div className="p-5 rounded-b-lg bg-white shadow-md" id="register">
                         <div className="form-group row">
                             <div className="col-md-12 mb-3">
-                                <label className="block mb-2 text-sm font-medium text-gray-900">
+                                <label className="block mb-2 fs-4 font-medium text-gray-900">
                                     <span style={{color: "red"}}>*</span>
                                     &nbsp;Họ và tên
                                 </label>
@@ -194,7 +194,7 @@ const Register = () => {
                                         style={{height: "30px"}}
                                         id="txtHoTen"
                                         name="name"
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 fs-4 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         placeholder="Họ và tên"
                                         onChange={handleChange}
                                         value={formData.name}
@@ -203,9 +203,9 @@ const Register = () => {
                                 {errors?.name && <span className="text-red-500">{errors?.name}</span>}
                             </div>
                         </div>
-                        <div className="form-group row grid md:grid-cols-2 md:gap-6">
+                        <div className="form-group row">
                             <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
-                                <label className="block mb-2 text-sm font-medium text-gray-900">
+                                <label className="block mb-2 fs-4 font-medium text-gray-900">
                                     <span style={{color: "red"}}>*</span>
                                     &nbsp;Email
                                 </label>
@@ -215,7 +215,7 @@ const Register = () => {
                                         style={{height: "30px"}}
                                         id="txtEmail"
                                         name="email"
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 fs-4 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         placeholder="Email"
                                         onChange={handleChange}
                                         value={formData.email}
@@ -224,7 +224,7 @@ const Register = () => {
                                 {errors?.email && <span className="text-red-500">{errors?.email}</span>}
                             </div>
                             <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
-                                <label className="block mb-2 text-sm font-medium text-gray-900">
+                                <label className="block mb-2 fs-4 font-medium text-gray-900">
                                     <span style={{color: "red"}}>*</span>
                                     &nbsp;Mật khẩu
                                 </label>
@@ -234,7 +234,7 @@ const Register = () => {
                                         style={{height: "30px"}}
                                         id="txtMatKhau"
                                         name="password"
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 fs-4 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         placeholder="Mật khẩu"
                                         onChange={handleChange}
                                         value={formData.password}
@@ -248,9 +248,9 @@ const Register = () => {
                             </div>
                         </div>
                         <div className="clearfix"></div>
-                        <div className="form-group row grid md:grid-cols-2 md:gap-6">
+                        <div className="form-group row">
                             <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
-                                <label className="block mb-2 text-sm font-medium text-gray-900">
+                                <label className="block mb-2 fs-4 font-medium text-gray-900">
                                     <span style={{color: "red"}}>*</span>
                                     &nbsp;Ngày sinh
                                 </label>
@@ -260,7 +260,7 @@ const Register = () => {
                                         style={{height: "30px"}}
                                         type="date"
                                         name="date"
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 fs-4 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         placeholder="Ngày sinh"
                                         onChange={handleChange}
                                         value={formData.date}
@@ -269,7 +269,7 @@ const Register = () => {
                                 {errors?.date && <span className="text-red-500">{errors?.date}</span>}
                             </div>
                             <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
-                                <label className="block mb-2 text-sm font-medium text-gray-900">
+                                <label className="block mb-2 fs-4 font-medium text-gray-900">
                                     <span style={{color: "red"}}>*</span>
                                     &nbsp;Số điện thoại
                                 </label>
@@ -279,7 +279,7 @@ const Register = () => {
                                         style={{height: "30px"}}
                                         id="txtDienThoai"
                                         name="phone_number"
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 fs-4 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         placeholder="Số điện thoại"
                                         onChange={handleChange}
                                         value={formData.phone_number}
