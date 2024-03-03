@@ -39,7 +39,7 @@ class CinemaController extends Controller
             'description' => 'required|string',
             'phoneContact' => 'required|string',
         ]);
-    
+
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
@@ -79,7 +79,7 @@ class CinemaController extends Controller
             'description' => 'required|string',
             'phoneContact' => 'required|string',
         ]);
-    
+
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
