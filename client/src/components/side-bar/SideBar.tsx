@@ -48,10 +48,7 @@ const navigation: SubNav[] = [
         name: "Thể Loại",
         icon: MovieType,
         current: false,
-        children: [
-            { name: "Danh sách ", href: "movie-type" },
-            { name: "Thêm danh mục", href: "movie-type/add" },
-        ],
+        href: 'movie-type'
     },
     {
         name: "Rạp Phim",
