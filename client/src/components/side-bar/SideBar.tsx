@@ -48,11 +48,18 @@ const navigation: SubNav[] = [
         name: "Thể Loại",
         icon: MovieType,
         current: false,
+        href: 'movie-type'
+    },
+    {
+        name: "Rạp Phim",
+        icon: CalendarIcon,
+        current: false,
         children: [
-            { name: "Danh sách ", href: "movie-type" },
-            { name: "Thêm danh mục", href: "movie-type/add" },
+            { name: "Danh sách ", href: "/admin/cinema" },
+            { name: "Thêm rạp", href: "/admin/cinema/add" },
         ],
     },
+
     {
         name: "Projects",
         icon: FolderIcon,
@@ -81,7 +88,7 @@ function classNames(...classes: (string | boolean)[]): string {
 const SideBar = () => {
     return (
         <>
-            <div className="flex grow flex-col gap-y-5 h-screen overflow-y-auto border-r border-gray-200 bg-white px-2">
+            <div className="flex grow flex-col gap-y-5 h-full overflow-y-hidden border-r border-gray-200 bg-white px-2">
                 <div className="flex items-center justify-center h-16 shrink-0 ">
                     <img
                         className="h-8 w-auto"

@@ -7,3 +7,7 @@ export {default as SchedulePage} from './schedule/SchedulePage'
 export { default as MovieTypeListPage } from './admin/movie-type/MovieTypeListPage'
 export { default as MovieTypeAddPage } from './admin/movie-type/MovieTypeAddPage'
 export {default as MovieTypeEditPage} from './admin/movie-type/MovieTypeEditPage'
+
+export {default as CinemaPageAdmin} from './admin/cinema/CinemaPage'
+export {default as CinemaAddPage} from './admin/cinema/CinemaAddPage'
+export {default as CinemaEditPage} from './admin/cinema/CinemaEditPage'
