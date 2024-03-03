@@ -1,6 +1,0 @@
-@mixin mq-down($breakpoint: md) {
-    @media #{map-get($breakpoint-down, $breakpoint)} {
-      @content;
-    }
-  }
-

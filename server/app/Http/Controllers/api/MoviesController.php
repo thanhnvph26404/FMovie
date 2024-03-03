@@ -80,16 +80,18 @@ class MoviesController extends Controller
         return new MoviesResource($movies);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        $movies = Movies::find($id);
-        if(!$movies){
-            return response()->json(['message'=>'Không tìm thấy movies']);
-        }
-        $movies->delete();
-        return response()->json(['message'=>'Xóa thành công thấy movies']);
-    }
+    //     public function search(Request $request)
+    // {
+    //     $name = $request->input('name'); // Lấy giá trị của tham số name từ request
+    //     $movies = Movies::where('name', 'like', "%$name%")->get();
+
+    //     if ($movies->isEmpty()) {
+    //         return response()->json(['message' => 'Không tìm thấy phim nào có tiêu đề tương tự'], 404);
+    //     }
+
+    //     return MoviesResource::collection($movies);
+    // }
+
+
+
 }
