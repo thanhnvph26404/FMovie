@@ -18,9 +18,12 @@ class MoviesController extends Controller
      */
     public function index()
     {
-        $movies = Movies::all();
+        $movies = Movies::with('categories', 'trailer')->get();
+
+        // Trả về dữ liệu phim dưới dạng resource
         return MoviesResource::collection($movies);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -34,17 +37,31 @@ class MoviesController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $validator = Validator::make($request->all(), []);
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => 422,
-                'message' => $validator->messages()
-            ], 422);
-        }
-        $movies = Movies::create($request->all());
-        return new MoviesResource($movies);
+{
+    // Tạo mới một bộ phim từ dữ liệu được gửi từ yêu cầu
+    $movieData = $request->except('id_category');
+
+    // Lưu phim vào cơ sở dữ liệu
+    $movie = Movies::create($movieData);
+
+    // Kiểm tra xem yêu cầu có chứa dữ liệu cho 'id_category' không
+    if ($request->has('id_category')) {
+        // Lấy danh sách các ID danh mục từ yêu cầu
+        $categoryIds = $request->input('id_category');
+
+        // Gắn danh mục cho bộ phim
+        $movie->categories()->attach($categoryIds);
     }
+
+    // Trả về phim mới đã tạo
+    return new MoviesResource($movie);
+}
+
+
+
+
+
+
 
 
     /**
@@ -52,12 +69,13 @@ class MoviesController extends Controller
      */
     public function show(string $id)
     {
-        $movies = Movies::find($id);
-        if (!$movies) {
-            return response()->json(['message' => 'Không tìm thấy ']);
-        } else {
-            return new MoviesResource($movies);
-        }
+        $movie = Movies::with('categories')->find($id);
+
+    if (!$movie) {
+        return response()->json(['message' => 'Không tìm thấy bộ phim'], 404);
+    }
+
+    return new MoviesResource($movie);
     }
 
     /**
@@ -71,15 +89,30 @@ class MoviesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        $movies = Movies::find($id);
-        if (!$movies) {
-            return response()->json(['message' => 'Không tìm thấy movies']);
-        }
-        $movies->update($request->all());
-        return new MoviesResource($movies);
+    public function update(Request $request, $id)
+{
+    // Tìm bộ phim cần cập nhật
+    $movie = Movies::findOrFail($id);
+
+    // Cập nhật thông tin bộ phim từ dữ liệu được gửi từ yêu cầu
+    $movie->fill($request->except('id_category'))->save();
+
+    // Kiểm tra xem yêu cầu có chứa dữ liệu cho 'id_category' không
+    if ($request->has('id_category')) {
+        // Lấy danh sách các ID danh mục từ yêu cầu
+        $categoryIds = $request->input('id_category');
+
+        // Đồng bộ hóa danh mục cho bộ phim
+        $movie->categories()->sync($categoryIds);
+    } else {
+        // Nếu không có dữ liệu danh mục được gửi, xóa tất cả các liên kết danh mục hiện tại
+        $movie->categories()->detach();
     }
+
+    // Trả về bộ phim đã cập nhật
+    return new MoviesResource($movie);
+}
+
 
     public function search(Request $request)
     {
