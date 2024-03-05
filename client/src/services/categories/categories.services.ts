@@ -13,7 +13,7 @@ export const categoryApi = createApi( {
             providesTags: [ 'Category' ]
         } ),
         getCategory: builder.query( {
-            query: ( id: string ) => ( {
+            query: ( id: string | number ) => ( {
                 url: `/${ id }`,
                 method: 'GET',
             } ),

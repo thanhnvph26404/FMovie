@@ -33,7 +33,7 @@ interface SubNav {
 }
 
 const navigation: SubNav[] = [
-    { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
+    { name: "Dashboard", href: "/admin", icon: HomeIcon, current: true },
     {
         name: "Phim",
         icon: MovieIcon,
