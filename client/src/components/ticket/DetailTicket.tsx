@@ -5,10 +5,8 @@ import { MdOutlineHomeWork } from "react-icons/md";
 import { GrSchedules } from "react-icons/gr";
 import { MdOutlineBedroomParent } from "react-icons/md";
 import { GiRockingChair } from "react-icons/gi";
-import '../TicketPage.scss';
 
 type Props = {}
-
 const DetailTicket = (props: Props, ) => {
   return (
     <>

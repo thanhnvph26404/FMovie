@@ -10,27 +10,22 @@ const InfoPayment = (props: Props) => {
     const [isVoucher,setIsVoucher]= useState(Boolean(false))
     const [isPoint,setIsPoint]= useState(Boolean(false))
 
-  
-
-
     const payments = [
         {
+          key:"1",
             imgPayment:"https://www.betacinemas.vn/Assets/global/img/booking/ic-card-vn.png",
             title:"Thẻ Nội Địa"
         },
-        // {
-        //     imgPayment:"https://www.betacinemas.vn/Assets/global/img/booking/ic-card-gb.png",
-        //     title:"Thẻ Quốc Tế"
-        // },
-        {
+
+        { key:"2",
             imgPayment:"https://www.betacinemas.vn/Assets/global/img/booking/shopeepay.png",
             title:"Ví ShoppyPay"
         },
-        {
+        { key:"3",
             imgPayment:"https://www.betacinemas.vn/Assets/global/img/booking/momo.ico",
             title:"Ví Momo"
         },
-        {
+        { key:"4",
             imgPayment:"https://www.betacinemas.vn/Assets/global/img/booking/zalopay.png",
             title:"Ví ZaloPay"
         },
@@ -170,18 +165,15 @@ const InfoPayment = (props: Props) => {
                 {payments?.map((item)=>{
                     return(<>
                        <div className="relative flex items-center justify-center rounded-xl px-4 py-3 font-medium text-gray-700">
-            <input className="peer hidden" type="radio" name="radio" id="radio1" checked />
-            <label className=" absolute top-0 h-full w-full cursor-pointer rounded-xl " for="radio1"> </label>
+            <input className="peer hidden" type="radio" name="radio" id={`radio${item?.key}`} checked />
+            <label className=" absolute top-0 h-full w-full cursor-pointer rounded-xl " for={`radio${item?.key}`}> </label>
             <div className="peer-checked:border-transparent peer-checked:bg-blue-400 peer-checked:ring-2 absolute left-0 mr-4 h-8 w-8 rounded-full border-2 border-gray-300 bg-gray-200 ring-blue-400 ring-offset-2"></div>
             <span className="pointer-events-none z-10 flex ml-4 flex justify-center items-center space-x-2 ">
                 <img className="w-12" src={item?.imgPayment} alt="" />
               {item?.title}</span>
                 </div>
                     </>)
-                })}
-             
-                
-              
+                })}           
             </div>
         </div>
     </div>

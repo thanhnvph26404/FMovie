@@ -81,9 +81,7 @@ const Combo = (props: Props) => {
               </td>
             </tr>
                 </>)
-            })}
-           
-           
+            })}          
           </tbody>
         </table>
    </>

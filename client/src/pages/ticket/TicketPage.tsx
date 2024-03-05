@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import './TicketPage.scss';
 import { IoIosArrowForward } from "react-icons/io";
-
-import SelectPosition from './components/SelectPosition';
-import DetailTicket from './components/DetailTicket';
-import InfoPayment from './components/InfoPayment';
+import SelectPosition from '../../components/ticket/SelectPosition';
+import DetailTicket from '../../components/ticket/DetailTicket';
+import InfoPayment from '../../components/ticket/InfoPayment';
 
 const TicketPage: React.FC = () => {
     const [isCheck ,setIsCheck]=useState(Boolean(false))
@@ -13,7 +12,7 @@ const TicketPage: React.FC = () => {
         try {
             setIsCheck(!isCheck)
         } catch (error) {
-            
+            console.log(error)
         }
     }
     
