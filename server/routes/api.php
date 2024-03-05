@@ -14,6 +14,7 @@ use App\Http\Controllers\api\SeatsTypeController;
 use App\Http\Controllers\api\ShowtimesController;
 use App\Http\Controllers\api\TicketsController;
 use App\Http\Controllers\api\TransactionVoucherLinkController;
+use App\Http\Controllers\api\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Resources\TransactionVoucherLinkResource;

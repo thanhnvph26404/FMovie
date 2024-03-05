@@ -31,7 +31,7 @@ const HeaderWebsite = () => {
     },
     {
       title:"Thành Viên",
-      linkTo:""
+      linkTo:"/register"
     },
   ]
   return (

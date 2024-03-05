@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import "./index.scss";
 import { Link } from "react-router-dom";
 import { FaTicketAlt, FaPlayCircle } from "react-icons/fa";
@@ -11,7 +11,7 @@ const ListMovie = (props: Props) => {
         setActiveTab(tab);
     };
     return (
-        <div className="list-movies ">
+        <div className="list-movies">
             {/* nav */}
             <div className="flex justify-center">
                 <ul className="list-movies__nav flex justify-center">
