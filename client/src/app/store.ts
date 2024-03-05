@@ -12,6 +12,9 @@ import {
 import storage from "redux-persist/lib/storage";
 import { categoryApi } from "@/services/categories/categories.services";
 import categoriesSlices from "@/services/categories/categoriesSlices";
+import { moviesApi } from "@/services/movies/movies.services";
+import movieSlice from "@/services/movies/moviesSlices";
+
 
 const persistConfig = {
     key: "root",
@@ -22,10 +25,13 @@ const rootReducer = combineReducers({
     //category
     [categoryApi.reducerPath]: categoryApi.reducer,
     categories: categoriesSlices,
-    //one more
+    //movies
+    [moviesApi.reducerPath]: moviesApi.reducer,
+    movies: movieSlice
 });
 const middleware = [
-    categoryApi.middleware
+    categoryApi.middleware,
+    moviesApi.middleware
 ];
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
