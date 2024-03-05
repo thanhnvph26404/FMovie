@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import {useNavigate} from "react-router-dom";
-
+import {useSelector} from "react-redux";
+import {useAppDispatch} from "@/app/hooks";
 import './Register.scss';
 import * as Yup from 'yup';
-import AuthService from "../../../services/auth/AuthService.tsx";
 import {toast} from "react-toastify";
+import {useRegisterMutation, useLogoutMutation} from "@/services/auth/auth.services.ts";
+import {logout} from "@/services/auth/authSlices.ts";
 
 // Set rules for form validation
 const schema = Yup.object().shape({
@@ -25,11 +27,23 @@ const Register = () => {
 
     const navigate = useNavigate();
 
+    const dispatch = useAppDispatch();
+
+    const token = useSelector((state: any) => state.auth.token);
+    const [logoutMutation] = useLogoutMutation();
+
     useEffect(() => {
         document.title = "Đăng ký";
 
-        AuthService.logout();
-    });
+        if (token) {
+            logoutMutation(token).then(() => {
+                dispatch(logout());
+            });
+        }
+    }, [dispatch, logoutMutation, token]);
+
+    // Call API
+    const [register] = useRegisterMutation();
 
     // Set initial state for form data
     const [formData, setFormData] = useState({
@@ -84,43 +98,60 @@ const Register = () => {
                 setErrors(errors);
 
                 // Call API
-                let res = await AuthService.register(validData);
+                await register(validData).unwrap()
+                    .then(() => {
+                        // Reset form data
+                        setFormData({
+                            name: "",
+                            email: "",
+                            password: "",
+                            date: "",
+                            phone_number: "",
+                        });
 
-                // Handle API response
-                if (res.status === 200) { // Success
-                    msg = res.data.message ?? "Thành công";
+                        // Set toast message
+                        msg = "Đăng ký thành công!";
 
-                    duration = 2000;
-
-                    type = "success";
-
-                    setTimeout(() => {
-                        navigate(
-                            "/login",
-                            {
-                                state: {
-                                    message: "Đăng ký thành công, vui lòng đăng nhập!",
-                                    email: formData.email,
-                                    password: formData.password,
-                                }
-                            }
-                        ); // Redirect to login page
-                    }, 3000);
-
-                } else { // Error
-                    if (typeof res.data.message !== "string") { // Validation errors
-                        for (let key in res.data.message) { // Loop through errors
-                            errors[key as keyof FormData] = res.data.message[key][0];
-                        }
-
-                        setErrors(errors); // Set form errors
-                    } else { // Other errors
-                        msg = res.data.message ?? "Thất bại!";
+                        // Set toast duration
                         duration = 2000;
-                        type = "error";
-                    }
 
-                }
+                        // Set toast type
+                        type = "success";
+
+                        // Redirect to login page
+                        setTimeout(() => {
+                            navigate(
+                                "/login",
+                                {
+                                    state: {
+                                        message: "Đăng ký thành công, vui lòng đăng nhập!",
+                                        email: formData.email,
+                                        password: formData.password,
+                                    }
+                                }
+                            ); // Redirect to login page
+                        }, 3000);
+                    })
+                    .catch((error: any) => {
+                        // Set toast message
+                        msg = "Có lỗi xảy ra, vui lòng chờ trong giây lát rồi thử lại!";
+
+                        // Set toast duration
+                        duration = 2000;
+
+                        // Set toast type
+                        type = "error";
+
+                        if (typeof error?.data?.message === "string") {
+                            msg = error.data.message;
+                        } else {
+                            for (const [key, value] of Object.entries(error.data.message)) {
+                                errors[key as keyof FormData] = value[0];
+                            }
+
+                            setErrors(errors);
+                        }
+                    });
 
             })
             .catch(validationErrors => { // Handle validation errors
@@ -151,7 +182,7 @@ const Register = () => {
     };
 
     return (
-        <div className="tab-content font-family-san fs-4" style={{backgroundColor: "#fff"}}>
+        <div className="tab-content font-family-san fs-6" style={{backgroundColor: "#fff"}}>
             {/*Register*/}
             <div className="flex justify-center py-5 my-5">
                 <div className="w-1/2 shadow-md rounded-lg">
@@ -162,7 +193,7 @@ const Register = () => {
                             onClick={() => navigate("/login")}
                         >
                             <a
-                                className="fs-4 text-decoration-none text-dark font-bold"
+                                className="fs-6 text-decoration-none text-dark font-bold"
                                 aria-expanded="false"
                             >
                                 Đăng nhập
@@ -173,7 +204,7 @@ const Register = () => {
                             className="text-center py-3 w-50 bg-blue-900"
                         >
                             <a
-                                className="fs-4 text-decoration-none text-white font-bold"
+                                className="fs-6 text-decoration-none text-white font-bold"
                                 data-toggle="tab"
                                 aria-expanded="true"
                             >
@@ -184,7 +215,7 @@ const Register = () => {
                     <div className="p-5 rounded-b-lg bg-white shadow-md" id="register">
                         <div className="form-group row">
                             <div className="col-md-12 mb-3">
-                                <label className="block mb-2 fs-4 font-medium text-gray-900">
+                                <label className="block mb-2 fs-6 font-medium text-gray-900">
                                     <span style={{color: "red"}}>*</span>
                                     &nbsp;Họ và tên
                                 </label>
@@ -194,7 +225,7 @@ const Register = () => {
                                         style={{height: "30px"}}
                                         id="txtHoTen"
                                         name="name"
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 fs-4 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 fs-6 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         placeholder="Họ và tên"
                                         onChange={handleChange}
                                         value={formData.name}
@@ -205,7 +236,7 @@ const Register = () => {
                         </div>
                         <div className="form-group row">
                             <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
-                                <label className="block mb-2 fs-4 font-medium text-gray-900">
+                                <label className="block mb-2 fs-6 font-medium text-gray-900">
                                     <span style={{color: "red"}}>*</span>
                                     &nbsp;Email
                                 </label>
@@ -215,7 +246,7 @@ const Register = () => {
                                         style={{height: "30px"}}
                                         id="txtEmail"
                                         name="email"
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 fs-4 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 fs-6 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         placeholder="Email"
                                         onChange={handleChange}
                                         value={formData.email}
@@ -224,7 +255,7 @@ const Register = () => {
                                 {errors?.email && <span className="text-red-500">{errors?.email}</span>}
                             </div>
                             <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
-                                <label className="block mb-2 fs-4 font-medium text-gray-900">
+                                <label className="block mb-2 fs-6 font-medium text-gray-900">
                                     <span style={{color: "red"}}>*</span>
                                     &nbsp;Mật khẩu
                                 </label>
@@ -234,7 +265,7 @@ const Register = () => {
                                         style={{height: "30px"}}
                                         id="txtMatKhau"
                                         name="password"
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 fs-4 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 fs-6 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         placeholder="Mật khẩu"
                                         onChange={handleChange}
                                         value={formData.password}
@@ -250,7 +281,7 @@ const Register = () => {
                         <div className="clearfix"></div>
                         <div className="form-group row">
                             <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
-                                <label className="block mb-2 fs-4 font-medium text-gray-900">
+                                <label className="block mb-2 fs-6 font-medium text-gray-900">
                                     <span style={{color: "red"}}>*</span>
                                     &nbsp;Ngày sinh
                                 </label>
@@ -260,7 +291,7 @@ const Register = () => {
                                         style={{height: "30px"}}
                                         type="date"
                                         name="date"
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 fs-4 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 fs-6 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         placeholder="Ngày sinh"
                                         onChange={handleChange}
                                         value={formData.date}
@@ -269,7 +300,7 @@ const Register = () => {
                                 {errors?.date && <span className="text-red-500">{errors?.date}</span>}
                             </div>
                             <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
-                                <label className="block mb-2 fs-4 font-medium text-gray-900">
+                                <label className="block mb-2 fs-6 font-medium text-gray-900">
                                     <span style={{color: "red"}}>*</span>
                                     &nbsp;Số điện thoại
                                 </label>
@@ -279,7 +310,7 @@ const Register = () => {
                                         style={{height: "30px"}}
                                         id="txtDienThoai"
                                         name="phone_number"
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 fs-4 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 fs-6 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         placeholder="Số điện thoại"
                                         onChange={handleChange}
                                         value={formData.phone_number}
@@ -294,7 +325,7 @@ const Register = () => {
                                 <div className="form-group">
                                     <button
                                         type="button"
-                                        className="btn btn-3 btn-mua-ve rounded px-5 py-2 text-white fs-4"
+                                        className="btn btn-3 btn-mua-ve rounded px-5 py-2 text-white fs-6"
                                         onClick={handleSubmit}
                                         disabled={isButtonDisabled}
                                     >

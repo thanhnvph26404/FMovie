@@ -14,12 +14,14 @@ import { categoryApi } from "@/services/categories/categories.services";
 import categoriesSlices from "@/services/categories/categoriesSlices";
 import { moviesApi } from "@/services/movies/movies.services";
 import movieSlice from "@/services/movies/moviesSlices";
+import { authApi } from "@/services/auth/auth.services";
+import authSlice from "@/services/auth/authSlices";
 
 
 const persistConfig = {
     key: "root",
     storage,
-    whitelist: [""],
+    whitelist: ["auth"],
 };
 const rootReducer = combineReducers({
     //category
@@ -27,11 +29,16 @@ const rootReducer = combineReducers({
     categories: categoriesSlices,
     //movies
     [moviesApi.reducerPath]: moviesApi.reducer,
-    movies: movieSlice
+    movies: movieSlice,
+
+    //auth
+    [authApi.reducerPath]: authApi.reducer,
+    auth: authSlice
 });
 const middleware = [
     categoryApi.middleware,
-    moviesApi.middleware
+    moviesApi.middleware,
+    authApi.middleware,
 ];
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
