@@ -8,6 +8,9 @@ import { CinemaPage, Dashboard, HomePage, MoviePage, MovieTypeAddPage, MovieType
 // import Register from "./pages/auth/register/Register";
 import TicketPage from "./pages/ticket/TicketPage";
 import DetailMoviePage from "./pages/detailMovie/DetailMoviePage";
+import MovieListPage from "./pages/admin/movie/MovieListPage";
+import MovieAddPage from "./pages/admin/movie/MovieAddPage";
+import MovieEditPage from "./pages/admin/movie/MovieEditPage";
 
 
 export const router = createBrowserRouter([
@@ -42,7 +45,10 @@ export const router = createBrowserRouter([
                     { path: "cinema/edit/:id", element: <CinemaEditPage />},
                     { path: "voucher", element: <VoucherPageAdmin />},
                     { path: "voucher/add", element: <VoucherAddPage />},
-                    { path: "voucher/edit/:id", element: <VoucherEditPage />},
+                    { path: "voucher/edit/:id", element: <VoucherEditPage /> },
+                    {path: "movie", element: <MovieListPage/>},
+                    {path: "movie/add", element: <MovieAddPage/>},
+                    {path: "movie/edit/:id", element: <MovieEditPage/>},
                 ],
             },
         ],
