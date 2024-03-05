@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./index.scss";
 import { Link } from "react-router-dom";
 import { FaTicketAlt, FaPlayCircle } from "react-icons/fa";
@@ -6,17 +6,23 @@ import { Drawer, DrawerContent, DrawerTrigger } from "../ui/drawer";
 import { cn } from "@/lib/utils";
 import Showtime from "../show-time/Showtime";
 import Trailer from "../trailer/Trailer";
+import { useGetMoviesByStatusQuery } from "@/services/movies/movies.services";
+import { Movie } from "@/services/movies/movies.interface";
+
 type Props = {};
 
 const ListMovie = (props: Props) => {
     const [activeTab, setActiveTab] = useState("PHIM SẮP CHIẾU");
     const [modal, setModal] = useState("");
-
-    const handleClick = (tab: string) => {
-        setActiveTab(tab);
-    };
-    console.log(modal);
+    const [status, setStatus] = useState('sắp chiếu')
+    const handleGetMovie = (status: string, active: string) => {
+        setActiveTab(active)
+        setStatus(status)
+    }
+    const { data: movies } = useGetMoviesByStatusQuery(status)
+    console.log(movies);
     
+
     return (
         <Drawer>
             <div className="list-movies">
@@ -24,7 +30,7 @@ const ListMovie = (props: Props) => {
                 <div className="flex justify-center">
                     <ul className="list-movies__nav flex justify-center">
                         <li
-                            onClick={() => setActiveTab("PHIM SẮP CHIẾU")}
+                            onClick={() => handleGetMovie("sắp chiếu","PHIM SẮP CHIẾU")}
                             className={`nav-item ${
                                 activeTab === "PHIM SẮP CHIẾU" ? "active" : ""
                             }`}
@@ -32,7 +38,7 @@ const ListMovie = (props: Props) => {
                             PHIM SẮP CHIẾU
                         </li>
                         <li
-                            onClick={() => setActiveTab("PHIM ĐANG CHIẾU")}
+                            onClick={() => handleGetMovie("đang chiếu","PHIM ĐANG CHIẾU")}
                             className={`nav-item ${
                                 activeTab === "PHIM ĐANG CHIẾU" ? "active" : ""
                             }`}
@@ -40,7 +46,7 @@ const ListMovie = (props: Props) => {
                             PHIM ĐANG CHIẾU
                         </li>
                         <li
-                            onClick={() => setActiveTab("SUẤT CHIẾU ĐẶC BIỆT")}
+                            onClick={() => handleGetMovie("suất đặc biệt","SUẤT CHIẾU ĐẶC BIỆT")}
                             className={`nav-item ${
                                 activeTab === "SUẤT CHIẾU ĐẶC BIỆT"
                                     ? "active"
@@ -53,11 +59,13 @@ const ListMovie = (props: Props) => {
                 </div>
                 {/* list movie */}
                 <div className="list-movie flex ">
-                    <div className="movie-item">
+                    {movies?.data?.map((movie: Movie) => (
+
+                    <div className="movie-item" key={movie.id}>
                         <DrawerTrigger className={cn('p-0 ')}>
                             <div className={cn('movie-item__image ') }>
                                 <img
-                                    src="https://files.betacorp.vn/files/media%2fimages%2f2024%2f01%2f31%2f400wx633h%2D111233%2D310124%2D12.jpg"
+                                    src={movie.image}
                                     alt=""
                                 />
                                 <div
@@ -71,14 +79,14 @@ const ListMovie = (props: Props) => {
                             </div>
                         </DrawerTrigger>
                         <div className="movie-item__bottom">
-                            <Link className="movie-item__title" to={`/movie/3`}>
-                                Gặp Lại Chị Bầu
+                            <Link className="movie-item__title" to={`/movie/${movie.id}`}>
+                                {movie.name}
                             </Link>
                             <p>
-                                <strong>Thể loại:</strong>Tình cảm, Hài hước
+                                <strong>Thể loại:</strong>{movie.detail.categories.map((category) => category.name).join(', ')}
                             </p>
                             <p>
-                                <strong>Thời lượng:</strong> 114 phút
+                                <strong>Thời lượng:</strong> {movie.time} phút
                             </p>
                             <DrawerTrigger
                                 onClick={() => setModal("showtime")}
@@ -91,6 +99,7 @@ const ListMovie = (props: Props) => {
                             </DrawerTrigger>
                         </div>
                     </div>
+                    ))}
                 </div>
             </div>
             {modal !== "trailer" ? (
