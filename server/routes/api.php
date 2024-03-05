@@ -33,7 +33,6 @@ use App\Models\Trailers;
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [AuthController::class,'user']);
-    Route::get('/logout', [AuthController::class,'logout']);
 });
 
 Route::post('/login', [AuthController::class,'login']);
