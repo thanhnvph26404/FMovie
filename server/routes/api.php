@@ -14,6 +14,7 @@ use App\Http\Controllers\api\SeatsTypeController;
 use App\Http\Controllers\api\ShowtimesController;
 use App\Http\Controllers\api\TicketsController;
 use App\Http\Controllers\api\TransactionVoucherLinkController;
+use App\Http\Controllers\api\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Resources\TransactionVoucherLinkResource;
@@ -42,7 +43,9 @@ Route::resource('cinema', CinemaController::class);
 Route::resource('voucher',VoucherController::class);
 Route::resource('category',CategoryController::class);
 Route::resource('movies',MoviesController::class);
-// Route::get('/movies/search', [MoviesController::class, 'search']);
+Route::get('/movies_search', [MoviesController::class, 'search']);  // tìm kiếm theo name
+Route::get('/movies/filter-by-category/{categoryName}', [MoviesController::class, 'filterByCategory']); // lọc phim theo danh mục
+Route::get('/movies/filter-by-status/{status}', [MoviesController::class, 'filterByStatus']);
 Route::resource('trailers',TrailersController::class);
 Route::resource('showtimes',ShowtimesController::class);
 Route::resource('transactionvoucher',TransactionVoucherLinkController::class);

@@ -33,7 +33,7 @@ interface SubNav {
 }
 
 const navigation: SubNav[] = [
-    { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
+    { name: "Dashboard", href: "/admin", icon: HomeIcon, current: true },
     {
         name: "Phim",
         icon: MovieIcon,
@@ -59,6 +59,17 @@ const navigation: SubNav[] = [
             { name: "Thêm rạp", href: "/admin/cinema/add" },
         ],
     },
+
+    {
+        name: "Voucher",
+        icon: MovieIcon,
+        current: false,
+        children: [
+            { name: "Danh sách ", href: "/admin/voucher" },
+            { name: "Thêm voucher", href: "/admin/voucher/add" },
+        ],
+    },
+
 
     {
         name: "Projects",

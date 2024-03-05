@@ -11,11 +11,11 @@ const HeaderWebsite = () => {
     },
     {
       title:"Phim",
-      linkTo:"/phim"
+      linkTo:"/movie"
     },
     {
       title:"Rạp",
-      linkTo:"/thong-tin-rap"
+      linkTo:"/cinema"
     },
     {
       title:"Giá Vé",
@@ -44,8 +44,8 @@ const HeaderWebsite = () => {
                           <a href="#"></a>
                       </div>
                       <ul className="list-unstyled list-inline pull-right">
-                          <li><a href="/login">Đăng nhập</a></li>
-                          <li><a href="/register">Đăng ký</a></li>
+                          <li><a href="#">Đăng nhập</a></li>
+                          <li><a href="#">Đăng ký</a></li>
                       </ul>
                   </div>
               </div>
