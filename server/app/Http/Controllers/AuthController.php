@@ -28,7 +28,7 @@ class AuthController extends Controller
 
     if (User::where('email', $request->email)->exists()) {
         return response()->json([
-            'message' => 'Email already exists',
+            'message' => 'Email đã tốn tại',
         ], 409);
     }
 
@@ -44,7 +44,7 @@ class AuthController extends Controller
     $user->save();
 
     return response()->json([
-        'message' => 'Successfully registered user!',
+        'message' => 'Đăng ký thành công',
     ], 201);
 }
 
@@ -63,7 +63,7 @@ class AuthController extends Controller
         }
 
         return response()->json([
-            'message' => 'Invalid credentials',
+            'message' => 'Thông tin không hợp lệ',
         ], 401);
     }
 
