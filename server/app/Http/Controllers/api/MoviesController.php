@@ -157,4 +157,24 @@ class MoviesController extends Controller
         // Trả về danh sách phim dưới dạng JSON
         return MoviesResource::collection($movies);
     }
+
+
+    // Các phương thức khác đã được bao gồm ở trên
+
+    /**
+     * Lọc phim theo trạng thái.
+     *
+     * @param  string  $status
+     * @return \Illuminate\Http\Response
+     */
+    public function filterByStatus($status)
+    {
+        // Lọc phim theo trạng thái
+        $movies = Movies::where('status', $status)->get();
+
+        // Trả về danh sách phim dưới dạng JSON
+        return MoviesResource::collection($movies);
+    }
+
+
 }

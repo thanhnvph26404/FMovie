@@ -23,6 +23,7 @@ class MoviesResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'time' => $this->time,
+            'status' => $this->status,
             'director' => $this->director,
             'actor' => $this->actor,
             'releaseDate' => $this->releaseDate,

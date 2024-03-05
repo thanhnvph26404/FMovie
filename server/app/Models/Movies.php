@@ -12,6 +12,7 @@ class Movies extends Model
         'name',
         'description',
         'time',
+        'status',
         'director',
         'actor',
         'releaseDate',
