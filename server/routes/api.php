@@ -43,7 +43,8 @@ Route::resource('cinema', CinemaController::class);
 Route::resource('voucher',VoucherController::class);
 Route::resource('category',CategoryController::class);
 Route::resource('movies',MoviesController::class);
-// Route::get('/movies/search', [MoviesController::class, 'search']);
+Route::get('/movies_search', [MoviesController::class, 'search']);  // tìm kiếm theo name
+Route::get('/movies/filter-by-category/{categoryName}', [MoviesController::class, 'filterByCategory']); // lọc phim theo danh mục
 Route::resource('trailers',TrailersController::class);
 Route::resource('showtimes',ShowtimesController::class);
 Route::resource('transactionvoucher',TransactionVoucherLinkController::class);
