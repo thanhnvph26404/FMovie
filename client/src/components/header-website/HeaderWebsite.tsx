@@ -11,11 +11,11 @@ const HeaderWebsite = () => {
     },
     {
       title:"Phim",
-      linkTo:"/phim"
+      linkTo:"/movie"
     },
     {
       title:"Rạp",
-      linkTo:"/thong-tin-rap"
+      linkTo:"/cinema"
     },
     {
       title:"Giá Vé",

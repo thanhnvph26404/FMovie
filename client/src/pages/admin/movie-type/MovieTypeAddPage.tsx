@@ -12,12 +12,12 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
-import { Category } from "@/services/categories/categories.interface"
 import { addNewCategory } from "@/services/categories/categoriesSlices"
 import { useAddCategoryMutation } from "@/services/categories/categories.services"
 import { useAppDispatch } from "@/app/hooks"
 import { useNavigate } from "react-router-dom"
 import { toastError, toastSuccess } from "@/hook/Toast"
+
 
 const MovieTypeAddPage = () => {
 
@@ -50,10 +50,11 @@ const MovieTypeAddPage = () => {
         navigate('/admin/movie-type')
       })
     } catch (error:unknown) {
-      toastError('Thêm sản phẩm thất bại!')
+      toastError('Thêm danh mục thất bại!')
     }
   }
-  return (
+
+  return ( 
     <div>
       <h2 className={cn('pb-4')}>Thêm danh mục</h2>
       <Form {...form}>

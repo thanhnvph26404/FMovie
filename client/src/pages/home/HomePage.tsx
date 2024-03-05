@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import './HomePage.scss';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
-import './HomePage.scss'
-
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -13,14 +9,9 @@ import 'swiper/css/scrollbar';
 import { ListMovie } from '../../components';
 
 const HomePage: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'dangchieu' | 'sapchieu' | 'dacbiet'>('dangchieu');
-
-  const handleTabClick = (tabId: 'dangchieu' | 'sapchieu' | 'dacbiet') => {
-    setActiveTab(tabId);
-  };
 
   return (
-    <div className="container homepage">
+    <div className=" homepage">
       <Swiper
           className='my-4'
           modules={[Navigation, Pagination, Scrollbar, A11y]}
