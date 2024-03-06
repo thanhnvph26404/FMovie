@@ -142,10 +142,10 @@ const Register = () => {
                         // Set toast type
                         type = "error";
 
-                        if (typeof error?.data?.message === "string") {
-                            msg = error.data.message;
+                        if (typeof error?.data === "string") {
+                            msg = error.data;
                         } else {
-                            for (const [key, value] of Object.entries(error.data.message)) {
+                            for (const [key, value] of Object.entries(error.data)) {
                                 errors[key as keyof FormData] = value[0];
                             }
 

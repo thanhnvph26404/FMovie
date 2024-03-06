@@ -117,22 +117,22 @@ const Login = () => {
                     .then(res => {
                         // Handle API response
                         const {
-                            access_token = "",
-                            type_token = "",
+                            token = "",
+                            role = "",
                         } = res;
 
-                        msg = type_token ?? "Thành công!";
+                        msg = token ? "Đăng nhập thành công!" : "Đăng nhập thất bại";
 
                         duration = 2000;
 
                         type = "success";
 
-                        getUserMutation(access_token).unwrap()
+                        getUserMutation(token).unwrap()
                             .then(res => {
                                 const user: User = res;
 
                                 const auth: AuthState = {
-                                    token: access_token,
+                                    token: token,
                                     user
                                 };
 
@@ -199,7 +199,7 @@ const Login = () => {
         <div className="tab-content font-family-san fs-6" style={{backgroundColor: "#fff"}}>
             {/*Login*/}
             <div className="flex justify-center py-5 my-5">
-                <div className="md:w-1/2 shadow-lg rounded-lg">
+                <div className="md:w-1/2 shadow-md rounded-lg">
                     {message && <div className="alert alert-success text-center">{message}</div>}
                     <ul className="nav nav-tabs text-uppercase tab-information rounded-t-lg overflow-hidden grid grid-cols-2 justify-center border-b-2">
                         <li
