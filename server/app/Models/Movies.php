@@ -12,19 +12,19 @@ class Movies extends Model
         'name',
         'description',
         'time',
+        'status',
         'director',
         'actor',
         'releaseDate',
         'language',
-        'id_category',
         'image',
         'id_trailer'
     ];
 
-    public function category()
-    {
-        return $this->belongsTo(Category::class, 'id_category');
-    }
+    public function categories()
+{
+    return $this->belongsToMany(Category::class, 'category_movie', 'movie_id', 'category_id');
+}
 
     public function trailer()
     {

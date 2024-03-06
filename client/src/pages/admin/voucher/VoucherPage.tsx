@@ -6,9 +6,9 @@ type Props = {};
 
 const CinemaPage = (props: Props) => {
 
-  const tHead = ["STT", "Tên rạp", "Địa chỉ", "Sđt", ""];
+  const tHead = ["STT", "Mã voucher", "Tên voucher", "Số lượng", "Tình Trạng", ""];
   const categoryState = [
-    { id: 1, name: "Beta Thanh Xuân", place: "Hà Nội", phone: "0893343443"}
+    { id: 1, code: "Beta Thanh Xuân", discount: "Hà Nội", condition: "0893343443"}
   ]
     // fdj
     const handleDelete = async (id: string | number) => {};
@@ -19,7 +19,7 @@ const CinemaPage = (props: Props) => {
                     <div className="sm:flex sm:items-center">
                         <div className="sm:flex-auto">
                             <h1 className="text-2xl font-semibold leading-6 text-gray-900">
-                                Danh sách rạp phim
+                                Danh sách voucher
                             </h1>
                         </div>
                         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
@@ -28,13 +28,13 @@ const CinemaPage = (props: Props) => {
                                 className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
                                 <Link
-                                    to="/admin/cinema/add"
+                                    to="/admin/voucher/add"
                                     style={{
                                         textDecoration: "none",
                                         color: "inherit",
                                     }}
                                 >
-                                    Thêm rạp
+                                    Thêm voucher
                                 </Link>
                             </button>
                         </div>
@@ -64,17 +64,17 @@ const CinemaPage = (props: Props) => {
                                         {index + 1}
                                     </td>
                                     <td className="hidden px-3 py-2 text-base text-gray-500 sm:table-cell">
-                                        {item.name}
+                                        {item.code}
                                 </td>
                                 <td className="hidden px-3 py-2 text-base text-gray-500 sm:table-cell">
-                                        {item.place}
+                                        {item.discount}
                                 </td>
                                 <td className="hidden px-3 py-2 text-base text-gray-500 sm:table-cell">
-                                        {item.phone}
+                                        {item.condition}
                                     </td>
                                     <td className="relative py-2 pl-3 text-right text-base font-medium flex">
                                         <Link
-                                            to={`/admin/movie-type/edit/${item.id}`}
+                                            to={`/admin/voucher/edit/${item.id}`}
                                             className="text-indigo-600 hover:text-indigo-900  p-2 mr-5 cursor-pointer"
                                         >
                                             <EditIcon />

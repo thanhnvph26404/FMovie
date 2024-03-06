@@ -79,6 +79,6 @@ class VoucherController extends Controller
             return response()->json(['message'=>'Không tìm thấy voucher']);
         }
         $voucher->delete();
-        return response()->json(['message'=>'Xóa thành công thấy voucher']);
+        return response()->json(['message'=>'Xóa thành công voucher']);
     }
 }

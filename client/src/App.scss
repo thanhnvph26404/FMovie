@@ -10,12 +10,12 @@ html{
     box-sizing: border-box;
 }
 body{
-    font-family: "Oswald", sans-serif;
+    font-family: "Oswald", sans-serif!important;
     font-style: normal;
     font-optical-sizing: auto;
 }
 a{
-    text-decoration: none;
+    text-decoration: none!important;
 }
 
 // using rem: 1rem = 10px,

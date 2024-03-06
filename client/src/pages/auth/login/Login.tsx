@@ -1,10 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from "react-router-dom";
-import './Login.scss';
+import {useSelector} from "react-redux";
 import * as Yup from "yup";
-import AuthService from "../../../services/auth/AuthService.tsx";
+import {useAppDispatch} from "@/app/hooks";
 import {toast} from "react-toastify";
-import LocalStorageService from "../../../services/LocalStorageService.tsx";
+import {useLoginMutation, useGetUserMutation} from "@/services/auth/auth.services.ts";
+import {login} from "@/services/auth/authSlices.ts";
+import {User, AuthState} from "@/services/auth/auth.interface.ts";
+import './Login.scss';
 
 const schema = Yup.object().shape({
     email: Yup.string()
@@ -22,20 +25,23 @@ const Login = () => {
 
     const navigate = useNavigate();
 
+    const dispatch = useAppDispatch();
+
     // Set initial state for form data
     const [formData, setFormData] = useState({
         email: "",
         password: "",
     });
 
+    const token = useSelector((state: any) => state.auth.token);
+
     useEffect(() => {
 
-        document.title = "Đăng nhập";
-
-        if (LocalStorageService.get("isLoggedIn") && AuthService.getToken()) {
-            navigate("/");
-            return;
+        if (token) {
+            navigate("/", {replace: true});
         }
+
+        document.title = "Đăng nhập";
 
         if (location.state) {
             const {message, email, password} = location.state;
@@ -54,10 +60,14 @@ const Login = () => {
 
             setFormData(formData);
 
-            // Xóa state sau khi sử dụng
+            // // Xóa state sau khi sử dụng
             navigate(location.pathname, {replace: true});
         }
     }, [location.state]);
+
+    const [loginMutation] = useLoginMutation();
+
+    const [getUserMutation] = useGetUserMutation();
 
     // Set initial state for form errors
     const [errors, setErrors] = useState<Partial<FormData>>({});
@@ -103,48 +113,59 @@ const Login = () => {
                 setErrors(errors);
 
                 // Call API
-                let res = await AuthService.loginPost(validData.email, validData.password);
+                await loginMutation(validData).unwrap()
+                    .then(res => {
+                        // Handle API response
+                        const {
+                            access_token = "",
+                            type_token = "",
+                        } = res;
 
-                // Handle API response
-                if (res.status === 200) { // Success
-                    const {
-                        access_token = "",
-                        type_token = "",
-                    } = res.data;
+                        msg = type_token ?? "Thành công!";
 
-                    msg = type_token ?? "Thành công!";
-
-                    duration = 2000;
-
-                    type = "success";
-
-                    let userInfoRes = await AuthService.getUserInfo(access_token);
-
-                    if (userInfoRes.status === 200) {
-                        AuthService.login(access_token, userInfoRes.data);
-                    }
-
-                    // Redirect to home page
-                    setTimeout(() => {
-                        navigate("/");
-                    }, 2500);
-
-                } else { // Error
-
-                    if (typeof res.data.message !== "string") { // Validation errors
-
-                        for (let key in res.data.message) { // Loop through errors
-                            errors[key as keyof FormData] = res.data.message[key][0];
-                        }
-
-                        setErrors(errors); // Set form errors
-                    } else { // Other errors
-                        msg = res.data.message ?? "Thất bại!";
                         duration = 2000;
-                        type = "error";
-                    }
 
-                }
+                        type = "success";
+
+                        getUserMutation(access_token).unwrap()
+                            .then(res => {
+                                const user: User = res;
+
+                                const auth: AuthState = {
+                                    token: access_token,
+                                    user
+                                };
+
+                                dispatch(login(auth)); // Dispatch action
+
+                                // Redirect to home page
+                                setTimeout(() => {
+                                    navigate("/");
+                                }, 2000);
+                            })
+
+                    })
+                    .catch((error: any) => {
+                        // Set toast message
+                        msg = "Có lỗi xảy ra, vui lòng chờ trong giây lát rồi thử lại!";
+
+                        // Set toast duration
+                        duration = 2000;
+
+                        // Set toast type
+                        type = "error";
+
+                        if (typeof error?.data?.message === "string") {
+                            msg = error.data.message;
+                        } else {
+                            for (const [key, value] of Object.entries(error.data.message)) {
+                                errors[key as keyof FormData] = value[0];
+                            }
+
+                            setErrors(errors);
+                        }
+                    });
+
 
             })
             .catch(validationErrors => { // Handle validation errors
@@ -175,7 +196,7 @@ const Login = () => {
     };
 
     return (
-        <div className="tab-content font-family-san fs-4" style={{backgroundColor: "#fff"}}>
+        <div className="tab-content font-family-san fs-6" style={{backgroundColor: "#fff"}}>
             {/*Login*/}
             <div className="flex justify-center py-5 my-5">
                 <div className="md:w-1/2 shadow-lg rounded-lg">
@@ -186,7 +207,7 @@ const Login = () => {
                             style={{cursor: "pointer"}}
                         >
                             <a
-                                className="fs-4 text-decoration-none font-bold text-white"
+                                className="fs-6 text-decoration-none font-bold text-white"
                                 aria-expanded="false"
                             >
                                 Đăng nhập
@@ -198,7 +219,7 @@ const Login = () => {
                             onClick={() => navigate("/register")}
                         >
                             <a
-                                className="fs-4 text-decoration-none font-bold text-dark"
+                                className="fs-6 text-decoration-none font-bold text-dark"
                                 data-toggle="tab"
                                 aria-expanded="true"
                             >
@@ -209,7 +230,7 @@ const Login = () => {
                     <div className="p-5 rounded-bottom-4 bg-body-tertiary" id="register">
                         <div className="form-group row">
                             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
-                                <label className="block mb-2 fs-4 font-medium text-gray-900">
+                                <label className="block mb-2 fs-6 font-medium text-gray-900">
                                     <span style={{color: "red"}}>*</span>
                                     &nbsp;Email
                                 </label>
@@ -219,7 +240,7 @@ const Login = () => {
                                         style={{height: "30px"}}
                                         id="txtEmail"
                                         name="email"
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 fs-4 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 fs-6 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         placeholder="Email"
                                         onChange={handleChange}
                                         value={formData.email}
@@ -228,7 +249,7 @@ const Login = () => {
                                 {errors?.email && <span className="text-red-500">{errors?.email}</span>}
                             </div>
                             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
-                                <label className="block mb-2 fs-4 font-medium text-gray-900">
+                                <label className="block mb-2 fs-6 font-medium text-gray-900">
                                     <span style={{color: "red"}}>*</span>
                                     &nbsp;Mật khẩu
                                 </label>
@@ -238,7 +259,7 @@ const Login = () => {
                                         style={{height: "30px"}}
                                         id="txtMatKhau"
                                         name="password"
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 fs-4 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 fs-6 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         placeholder="Mật khẩu"
                                         onChange={handleChange}
                                         value={formData.password}
@@ -257,7 +278,7 @@ const Login = () => {
                                 <div className="form-group">
                                     <button
                                         type="button"
-                                        className="btn btn-3 btn-mua-ve rounded px-5 py-2 text-white fs-4"
+                                        className="btn btn-3 btn-mua-ve rounded px-5 py-2 text-white fs-6"
                                         onClick={handleSubmit}
                                         disabled={isButtonDisabled}
                                     >

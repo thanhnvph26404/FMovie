@@ -49,10 +49,10 @@ class AuthController extends Controller
             'password.required' => 'Vui lòng nhập password!',
             'date.required' => 'Vui lòng nhập ngày tháng năm sinh!',
             'phone_number.required' => 'Vui lòng nhập số điện thoại!',
-        ]; 
+        ];
 
         $validate = Validator::make($request->all(), [
-            'email'=> 'email|required',
+            'email'=> 'required|email|unique:users,email',
             'password'=> 'required',
             'date'=> 'required',
             'phone_number'=> 'required',
@@ -72,7 +72,7 @@ class AuthController extends Controller
             'email'=> $request->email,
             'password'=> Hash::make($request->password),
             'date' => $request->date,
-            'role' => $request->role,
+//            'role' => $request->role,
             'phone_number'=> $request->phone_number,
         ]);
 
@@ -86,5 +86,15 @@ class AuthController extends Controller
 
     public function user(Request $request){
         return $request->user();
+    }
+
+    public function logout(Request $request){
+        $request->user()->currentAccessToken()->delete();
+        return response()->json(
+            [
+                'message' => "Đăng xuất thành công"
+            ],
+            200
+        );
     }
 }
