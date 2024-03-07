@@ -15,3 +15,7 @@ export {default as CinemaEditPage} from './admin/cinema/CinemaEditPage'
 export {default as VoucherPageAdmin} from './admin/voucher/VoucherPage'
 export {default as VoucherAddPage} from './admin/voucher/VoucherAddPage'
 export {default as VoucherEditPage} from './admin/voucher/VoucherEditPage'
+
+export {default as RoomsPageAdmin} from './admin/room/RoomListPage'
+export {default as RoomsAddPage} from './admin/room/RoomAddPage'
+export {default as RoomsEditPage} from './admin/room/RoomEditPage'

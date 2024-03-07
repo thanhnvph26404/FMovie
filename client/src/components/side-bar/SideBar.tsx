@@ -70,6 +70,16 @@ const navigation: SubNav[] = [
         ],
     },
 
+    {
+        name: "Phòng chiếu",
+        icon: CalendarIcon,
+        current: false,
+        children: [
+            { name: "Danh sách ", href: "/admin/room" },
+            { name: "Thêm phòng chiếu", href: "/admin/room/add" },
+        ],
+    },
+
 
     {
         name: "Projects",
