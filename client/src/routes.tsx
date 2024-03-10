@@ -1,7 +1,7 @@
 import {createBrowserRouter} from "react-router-dom";
 import LayoutAdmin from "./layout/admin/LayoutAdmin";
 import LayoutWebsite from "./layout/website/LayoutWebsite";
-import { CinemaPage, Dashboard, HomePage, MoviePage, MovieTypeAddPage, MovieTypeEditPage, MovieTypeListPage, PageNotFound, SchedulePage,CinemaPageAdmin, CinemaAddPage, CinemaEditPage, VoucherPageAdmin, VoucherAddPage, VoucherEditPage } from "./pages";
+import { CinemaPage, Dashboard, HomePage, MoviePage, MovieTypeAddPage, MovieTypeEditPage, MovieTypeListPage, PageNotFound, SchedulePage,CinemaPageAdmin, CinemaAddPage, CinemaEditPage, VoucherPageAdmin, VoucherAddPage, VoucherEditPage, SeatPageAdmin, SeatAddPage, SeatEditPage } from "./pages";
 
 
 // import Login from "./pages/auth/login/Login";
@@ -43,6 +43,9 @@ export const router = createBrowserRouter([
                     { path: "voucher", element: <VoucherPageAdmin />},
                     { path: "voucher/add", element: <VoucherAddPage />},
                     { path: "voucher/edit/:id", element: <VoucherEditPage />},
+                    { path: "seat", element: <SeatPageAdmin />},
+                    { path: "seat/add", element: <SeatAddPage />},
+                    { path: "seat/edit/:id", element: <SeatEditPage />},
                 ],
             },
         ],
