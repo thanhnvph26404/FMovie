@@ -13,7 +13,6 @@ class Ticket extends Model
     protected $fillable = [
         'id_user',
         'quantity',
-        'price',
         'id_seat',
         'id_showtime'
         ];
@@ -30,4 +29,7 @@ class Ticket extends Model
     {
         return $this->belongsTo(Showtimes::class, 'id_showtime');
     }
+    // Trong model Ticket
+
+
 }

@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreign('id_user')->references('id')->on('users');
 
             $table->integer('quantity');
-            $table->decimal('price', 10, 2);
 
             $table->unsignedBigInteger('id_seat')->nullable();
             $table->foreign('id_seat')->references('id')->on('seats');

@@ -12,13 +12,12 @@ class Movies extends Model
         'name',
         'description',
         'time',
-        'status',
         'director',
         'actor',
         'releaseDate',
         'language',
         'image',
-        'id_trailer'
+        'id_trailer',
     ];
 
     public function categories()

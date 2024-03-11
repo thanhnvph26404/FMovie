@@ -70,6 +70,17 @@ const navigation: SubNav[] = [
         ],
     },
 
+    {
+        name: "Ghế",
+        icon: CalendarIcon,
+        current: false,
+        children: [
+            { name: "Danh sách ", href: "/admin/seat" },
+            { name: "Thêm ghế", href: "/admin/seat/add" },
+        ],
+    },
+    
+
 
     {
         name: "Projects",

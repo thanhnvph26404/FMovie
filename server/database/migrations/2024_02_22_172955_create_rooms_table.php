@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_cinema')->nullable();
             $table->foreign('id_cinema')->references('id')->on('cinemas');
 
-            $table->integer('quantity');
+            $table->string('name');
 
             $table->timestamps();
         });

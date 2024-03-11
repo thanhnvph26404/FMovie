@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('totalQuantity');
             $table->enum('paymentMethod', ['Tiền mặt', 'Chuyển khoản']);
             $table->time('time', $precision = 0);
+            $table->decimal('totalPayment', 10, 0);
             $table->enum('paymentStatus', ['Đã thanh toán', 'Chưa thanh toán']);
             $table->timestamps();
         });
