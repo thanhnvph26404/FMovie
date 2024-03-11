@@ -14,8 +14,10 @@ import { categoryApi } from "@/services/categories/categories.services";
 import categoriesSlices from "@/services/categories/categoriesSlices";
 import { moviesApi } from "@/services/movies/movies.services";
 import movieSlice from "@/services/movies/moviesSlices";
-import {  cinemasApi } from '../services/cinema/cinemas.services';
+import { cinemasApi } from "@/services/cinema/cinemas.services";
 import cinemasSlices from "@/services/cinema/cinemasSlices";
+// import {  cinemasApi } from '../services/cinema/cinemas.services';
+// import cinemasSlices from "@/services/cinema/cinemasSlices";
 
 import { seattypeApi } from "@/services/seatstype/seatstype.services";
 import seatstypeSlices from "@/services/seatstype/seatstypeSlices";
