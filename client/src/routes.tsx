@@ -1,8 +1,11 @@
 import {createBrowserRouter} from "react-router-dom";
 import LayoutAdmin from "./layout/admin/LayoutAdmin";
 import LayoutWebsite from "./layout/website/LayoutWebsite";
-import { CinemaPage, Dashboard, HomePage, MoviePage, MovieTypeAddPage, MovieTypeEditPage, MovieTypeListPage, PageNotFound, SchedulePage,CinemaPageAdmin, CinemaAddPage, CinemaEditPage, VoucherPageAdmin, VoucherAddPage, VoucherEditPage } from "./pages";
+import { CinemaPage, Dashboard, HomePage, MoviePage, MovieTypeAddPage, MovieTypeEditPage, MovieTypeListPage, PageNotFound, SchedulePage,CinemaPageAdmin, CinemaAddPage, CinemaEditPage, VoucherPageAdmin, VoucherAddPage, VoucherEditPage, SeatPageAdmin, SeatAddPage, SeatEditPage } from "./pages";
 
+
+import Login from "./pages/auth/login/Login";
+import Register from "./pages/auth/register/Register";
 import TicketPage from "./pages/ticket/TicketPage";
 import DetailMoviePage from "./pages/detailMovie/DetailMoviePage";
 import MovieListPage from "./pages/admin/movie/MovieListPage";
@@ -18,8 +21,8 @@ export const router = createBrowserRouter([
         ),
         children: [
             {index: true, element: <HomePage/>},
-            // {path: "login", element: <LoginPage/>},
-            // { path: "register", element: <RegisterPage /> },
+            {path: "login", element: <Login/>},
+            { path: "register", element: <Register /> },
             { path: "movie", element: <MoviePage /> },
             { path: "movie/:id", element: <DetailMoviePage /> },
             { path: "schedule", element: <SchedulePage /> },
@@ -46,6 +49,9 @@ export const router = createBrowserRouter([
                     {path: "movie", element: <MovieListPage/>},
                     {path: "movie/add", element: <MovieAddPage/>},
                     {path: "movie/edit/:id", element: <MovieEditPage/>},
+                    { path: "seat", element: <SeatPageAdmin />},
+                    { path: "seat/add", element: <SeatAddPage />},
+                    { path: "seat/edit/:id", element: <SeatEditPage />},
                 ],
             },
         ],

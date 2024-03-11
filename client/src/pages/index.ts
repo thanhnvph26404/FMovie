@@ -14,6 +14,8 @@ export {default as CinemaEditPage} from './admin/cinema/CinemaEditPage'
 
 export {default as VoucherPageAdmin} from './admin/voucher/VoucherPage'
 export {default as VoucherAddPage} from './admin/voucher/VoucherAddPage'
-export { default as VoucherEditPage } from './admin/voucher/VoucherEditPage'
-// export {default as LoginPage} from '@/pages/auth/login/Login'
-// export {default as RegisterPage} from '@/pages/auth/register/Register'
+export {default as VoucherEditPage} from './admin/voucher/VoucherEditPage'
+
+export {default as SeatPageAdmin} from './admin/seat/SeatListPage'
+export {default as SeatAddPage} from './admin/seat/SeatAddPage'
+export {default as SeatEditPage} from './admin/seat/SeatEditPage'
