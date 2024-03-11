@@ -13,6 +13,7 @@ class Transaction extends Model
         'totalQuantity',
         'paymentMethod',
         'time',
+        'totalPayment',
         'paymentStatus'
     ] ;
 

@@ -13,10 +13,8 @@ class Showtimes extends Model
         'id_cinema',
         'showDate',
         'showTime',
-        'actor',
         'releaseDate',
         'language',
-        'genre',
         'id_room'
     ];
 
