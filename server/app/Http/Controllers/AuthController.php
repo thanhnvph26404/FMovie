@@ -12,76 +12,59 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function login(Request $request){
-        $user = User::where('email', $request->email)->first();
+    public function register(Request $request)
+{
+    $validator = Validator::make($request->all(), [
+        'name' => 'required|string',
+        'email' => 'required|string|email|unique:users',
+        'password' => 'required|string',
+        'date' => 'required|date',
+        'phone_number' => 'required|string',
+    ]);
 
-        if(!$user){
-            return response()->json(
-                [
-                    'message' => "User không tồn tại",
-                ],
-                404
-            );
-        }else if(!Hash::check($request->password, $user->password, [])){
-            return response()->json(
-                [
-                    'message' => "Password không đúng",
-                ],
-                404
-            );
-        }
-
-        $token = $user->createToken('authToken')->plainTextToken;
-
-        return response()->json(
-            [
-                'access_token' => $token,
-                'type_token' => 'Đăng nhập thành công'
-            ],
-            200
-        );
+    if ($validator->fails()) {
+        return response()->json($validator->errors(), 400);
     }
 
-    public function register(Request $request){
-        $message = [
-            'email.email' => 'Error email',
-            'email.required' => 'Vui lòng nhập email!',
-            'password.required' => 'Vui lòng nhập password!',
-            'date.required' => 'Vui lòng nhập ngày tháng năm sinh!',
-            'phone_number.required' => 'Vui lòng nhập số điện thoại!',
-        ]; 
+    if (User::where('email', $request->email)->exists()) {
+        return response()->json([
+            'message' => 'Email đã tốn tại',
+        ], 409);
+    }
 
-        $validate = Validator::make($request->all(), [
-            'email'=> 'email|required',
-            'password'=> 'required',
-            'date'=> 'required',
-            'phone_number'=> 'required',
-        ], $message);
+    $user = new User([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => bcrypt($request->password),
+        'date' => $request->date,
+        'role' => 'user',
+        'phone_number' => $request->phone_number,
+    ]);
 
-        if($validate->fails()){
-            return response()->json(
-                [
-                    'message' => $validate->errors()
-                ],
-                404
-            );
+    $user->save();
+
+    return response()->json([
+        'message' => 'Đăng ký thành công',
+    ], 201);
+}
+
+    public function login(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            $token = $user->createToken('MyApp')->plainTextToken;
+
+            return response()->json([
+                'token' => $token,
+                'role' => $user->role,
+            ]);
         }
 
-        User::create([
-            'name' => $request->name,
-            'email'=> $request->email,
-            'password'=> Hash::make($request->password),
-            'date' => $request->date,
-            'role' => $request->role,
-            'phone_number'=> $request->phone_number,
-        ]);
-
-        return response()->json(
-            [
-                'message' => "Đăng ký thành công"
-            ],
-            200
-        );
+        return response()->json([
+            'message' => 'Thông tin không hợp lệ',
+        ], 401);
     }
 
     public function user(Request $request){
