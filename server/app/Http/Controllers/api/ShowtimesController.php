@@ -94,4 +94,30 @@ class ShowtimesController extends Controller
         $showtimes->delete();
         return response()->json(['message' => 'Xoá thành công']) ;
     }
+    public function filterByDate(Request $request)
+    {
+        // Validate the incoming request
+        $validator = Validator::make($request->all(), [
+            'showDate' => 'required|date_format:Y-m-d',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid date format',
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        // Get the showDate from the request
+        $showDate = $request->input('showDate');
+
+        // Query the database to filter showtimes by showDate
+        $showtimes = Showtimes::whereDate('showDate', $showDate)->get();
+
+        // Return the filtered showtimes as a JSON response
+        return response()->json([
+            'data' => ShowtimesResource::collection($showtimes),
+        ]);
+    }
 }

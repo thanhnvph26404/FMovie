@@ -30,4 +30,7 @@ class Ticket extends Model
     {
         return $this->belongsTo(Showtimes::class, 'id_showtime');
     }
+    // Trong model Ticket
+
+
 }

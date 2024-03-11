@@ -15,7 +15,7 @@ class TicketsController extends Controller
      */
     public function index()
     {
-        $tickets = Ticket::all();
+        $tickets = Ticket::with('showtime')->get();
         return TicketsResource::collection($tickets);
     }
 
@@ -32,8 +32,46 @@ class TicketsController extends Controller
      */
     public function store(Request $request)
     {
-        $tickets = Ticket::create($request->all());
-        return new TicketsResource($tickets);
+        // Kiểm tra dữ liệu đầu vào
+        $validator = Validator::make($request->all(), [
+            'id_user' => 'required|exists:users,id',
+            'quantity' => 'required|integer|min:1',
+            'price' => 'required|numeric|min:0',
+            'id_seat' => 'required|exists:seats,id',
+            'id_showtime' => 'required|exists:showtimes,id',
+        ]);
+
+        // Nếu dữ liệu không hợp lệ, trả về thông báo lỗi
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 422,
+                'message' => $validator->messages()
+            ], 422);
+        }
+
+        // Tạo vé mới
+        $ticket = Ticket::create([
+            'id_user' => $request->id_user,
+            'quantity' => $request->quantity,
+            'price' => $request->price,
+            'id_seat' => $request->id_seat,
+            'id_showtime' => $request->id_showtime,
+        ]);
+
+        // Kiểm tra nếu vé được tạo thành công
+        if ($ticket) {
+            return response()->json([
+                'status' => 200,
+                'message' => 'Ticket successfully booked',
+                'data' => $ticket
+            ], 200);
+        } else {
+            // Nếu có lỗi khi tạo vé
+            return response()->json([
+                'status' => 500,
+                'message' => 'Failed to book ticket'
+            ], 500);
+        }
     }
 
     /**
@@ -65,7 +103,7 @@ class TicketsController extends Controller
     {
         $tickets = Ticket::find($id);
         if(!$tickets){
-            return response()->json(['message'=>'Không tìm thấy ']);
+            return response()->json(['message'=>'Không tìm thấy vé ']);
         }
         $tickets->update($request->all());
         return new TicketsResource($tickets);
