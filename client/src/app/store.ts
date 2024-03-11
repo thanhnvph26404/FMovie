@@ -14,6 +14,8 @@ import { categoryApi } from "@/services/categories/categories.services";
 import categoriesSlices from "@/services/categories/categoriesSlices";
 import { moviesApi } from "@/services/movies/movies.services";
 import movieSlice from "@/services/movies/moviesSlices";
+import {  cinemasApi } from '../services/cinema/cinemas.services';
+import cinemasSlices from "@/services/cinema/cinemasSlices";
 
 
 const persistConfig = {
@@ -27,11 +29,16 @@ const rootReducer = combineReducers({
     categories: categoriesSlices,
     //movies
     [moviesApi.reducerPath]: moviesApi.reducer,
-    movies: movieSlice
+    movies: movieSlice,
+    //cinemas
+    [cinemasApi.reducerPath]: cinemasApi.reducer,
+    cinemas: cinemasSlices,
+   
 });
 const middleware = [
     categoryApi.middleware,
-    moviesApi.middleware
+    moviesApi.middleware,
+    cinemasApi.middleware
 ];
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -1,17 +1,47 @@
+import { useAppDispatch, useAppSelector } from "@/app/hooks";
+import { toastError, toastSuccess } from "@/hook/Toast";
+import { deleteCategory, loadCategoryList } from "@/services/categories/categoriesSlices";
+import { useDeleteCinemaMutation, useGetCinemaListQuery } from "@/services/cinema/cinemas.services";
 import { DeleteIcon, EditIcon } from "lucide-react";
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 type Props = {};
 
 const CinemaPage = (props: Props) => {
+    const dispatch = useAppDispatch();
+    const categoryState = useAppSelector(
+        (state) => state.categories.categories
+  );
+  
+    const {
+        data: category,
+        isLoading: isCategoryListLoading,
+        isSuccess: isCategoryListSuccess,
+    } = useGetCinemaListQuery([]);
+    //delete
+    const [deleteCinemaApi, { isError: isDeleteCategoryError }] =
+    useDeleteCinemaMutation();
+  
+    useEffect(() => {
+        dispatch(loadCategoryList(category?.data));
+    }, [isCategoryListSuccess]);
+
 
   const tHead = ["STT", "Tên rạp", "Địa chỉ", "Sđt", ""];
-  const categoryState = [
-    { id: 1, name: "Beta Thanh Xuân", place: "Hà Nội", phone: "0893343443"}
-  ]
-    // fdj
-    const handleDelete = async (id: string | number) => {};
+
+    const handleDelete = async (id: string | number) => {
+        try {
+            await deleteCinemaApi(id).unwrap().then(() => {
+              dispatch(deleteCategory(id))
+            }).then(() => {
+              toastSuccess('Xóa rạp thành công')
+            })
+          } catch (error) {
+            toastError('Xóa rạp thất bại')
+            
+          }
+    };
     return (
         <div>
             <div className="mx-auto mt-1">
@@ -67,14 +97,14 @@ const CinemaPage = (props: Props) => {
                                         {item.name}
                                 </td>
                                 <td className="hidden px-3 py-2 text-base text-gray-500 sm:table-cell">
-                                        {item.place}
+                                        {item.address}
                                 </td>
                                 <td className="hidden px-3 py-2 text-base text-gray-500 sm:table-cell">
-                                        {item.phone}
+                                        {item.phoneContact}
                                     </td>
                                     <td className="relative py-2 pl-3 text-right text-base font-medium flex">
                                         <Link
-                                            to={`/admin/movie-type/edit/${item.id}`}
+                                            to={`/admin/cinema/edit/${item.id}`}
                                             className="text-indigo-600 hover:text-indigo-900  p-2 mr-5 cursor-pointer"
                                         >
                                             <EditIcon />
