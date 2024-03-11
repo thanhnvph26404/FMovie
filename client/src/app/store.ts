@@ -14,17 +14,17 @@ import { categoryApi } from "@/services/categories/categories.services";
 import categoriesSlices from "@/services/categories/categoriesSlices";
 import { moviesApi } from "@/services/movies/movies.services";
 import movieSlice from "@/services/movies/moviesSlices";
-<<<<<<< HEAD
+
 import { seattypeApi } from "@/services/seatstype/seatstype.services";
 import seatstypeSlices from "@/services/seatstype/seatstypeSlices";
 import { roomApi } from "@/services/rooms/rooms.services";
 import roomsSlices from "@/services/rooms/roomsSlices";
 import { seatApi } from "@/services/seats/seats.services";
 import seatsSlices from "@/services/seats/seatsSlices";
-=======
+
 import { authApi } from "@/services/auth/auth.services";
 import authSlice from "@/services/auth/authSlices";
->>>>>>> origin/giangnv/signing
+
 
 
 const persistConfig = {
@@ -42,30 +42,30 @@ const rootReducer = combineReducers({
     //movies
     [moviesApi.reducerPath]: moviesApi.reducer,
     movies: movieSlice,
-<<<<<<< HEAD
+
     //seattype
     [seattypeApi.reducerPath]: seattypeApi.reducer,
     seatstype: seatstypeSlices,
     //seats
    [seatApi.reducerPath]: seatApi.reducer,
    seats: seatsSlices,
-=======
+
 
     //auth
     [authApi.reducerPath]: authApi.reducer,
     auth: authSlice
->>>>>>> origin/giangnv/signing
+
 });
 const middleware = [
     categoryApi.middleware,
     moviesApi.middleware,
-<<<<<<< HEAD
+
     seattypeApi.middleware,
     roomApi.middleware,
     seatApi.middleware,
-=======
+
     authApi.middleware,
->>>>>>> origin/giangnv/signing
+
 ];
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
