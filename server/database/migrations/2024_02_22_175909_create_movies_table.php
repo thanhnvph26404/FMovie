@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
+            $table->enum('status', ['Phim sắp chiếu', 'Phim đang chiếu', 'Suất chiếu đặc biệt']);
             $table->string('time');
             $table->string('director');
             $table->string('actor');
