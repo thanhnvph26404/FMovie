@@ -16,20 +16,16 @@ class AuthController extends Controller
 {
     $validator = Validator::make($request->all(), [
         'name' => 'required|string',
-        'email' => 'required|string|email|unique:users',
+        'email' => 'required|string|email|unique:users,email',
         'password' => 'required|string',
         'date' => 'required|date',
         'phone_number' => 'required|string',
+    ], [
+        'email.unique' => "Email đã tốn tại"
     ]);
 
     if ($validator->fails()) {
         return response()->json($validator->errors(), 400);
-    }
-
-    if (User::where('email', $request->email)->exists()) {
-        return response()->json([
-            'message' => 'Email đã tốn tại',
-        ], 409);
     }
 
     $user = new User([
@@ -69,5 +65,15 @@ class AuthController extends Controller
 
     public function user(Request $request){
         return $request->user();
+    }
+
+    public function logout(Request $request){
+        $request->user()->currentAccessToken()->delete();
+        return response()->json(
+            [
+                'message' => "Đăng xuất thành công"
+            ],
+            200
+        );
     }
 }

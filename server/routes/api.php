@@ -35,6 +35,7 @@ use App\Http\Controllers\api\TransactionVoucherLinkController;
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [AuthController::class,'user']);
+    Route::get('/logout', [AuthController::class,'logout']);
 });
 
 Route::post('/login', [AuthController::class,'login']);
