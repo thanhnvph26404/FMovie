@@ -33,6 +33,7 @@ use App\Models\Trailers;
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [AuthController::class,'user']);
+    Route::get('/logout', [AuthController::class,'logout']);
 });
 
 Route::post('/login', [AuthController::class,'login']);
@@ -45,6 +46,7 @@ Route::resource('movies',MoviesController::class);
 Route::get('/movies_search', [MoviesController::class, 'search']);  // tìm kiếm theo name
 Route::get('/movies/filter-by-category/{categoryName}', [MoviesController::class, 'filterByCategory']); // lọc phim theo danh mục
 Route::get('/movies/filter-by-status/{status}', [MoviesController::class, 'filterByStatus']);
+Route::get('showtimes/filter', [ShowtimesController::class, 'filterByDate']); // lọc theo ngày chiếu
 Route::resource('trailers',TrailersController::class);
 Route::resource('showtimes',ShowtimesController::class);
 Route::resource('transactionvoucher',TransactionVoucherLinkController::class);
