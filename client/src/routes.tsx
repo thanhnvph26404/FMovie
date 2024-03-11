@@ -1,7 +1,7 @@
 import {createBrowserRouter} from "react-router-dom";
 import LayoutAdmin from "./layout/admin/LayoutAdmin";
 import LayoutWebsite from "./layout/website/LayoutWebsite";
-import { CinemaPage, Dashboard, HomePage, MoviePage, MovieTypeAddPage, MovieTypeEditPage, MovieTypeListPage, PageNotFound, SchedulePage,CinemaPageAdmin, CinemaAddPage, CinemaEditPage, VoucherPageAdmin, VoucherAddPage, VoucherEditPage, LoginPage, RegisterPage } from "./pages";
+import { CinemaPage, Dashboard, HomePage, MoviePage, MovieTypeAddPage, MovieTypeEditPage, MovieTypeListPage, PageNotFound, SchedulePage,CinemaPageAdmin, CinemaAddPage, CinemaEditPage, VoucherPageAdmin, VoucherAddPage, VoucherEditPage } from "./pages";
 
 import TicketPage from "./pages/ticket/TicketPage";
 import DetailMoviePage from "./pages/detailMovie/DetailMoviePage";
