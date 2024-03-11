@@ -9,21 +9,21 @@ import {login} from "@/services/auth/authSlices.ts";
 import {User, AuthState} from "@/services/auth/auth.interface.ts";
 import './Login.scss';
 
-// const schema = Yup.object().shape({
-//     email: Yup.string()
-//         .email('Email không hợp lệ')
-//         .required('Email là bắt buộc'),
-//     password: Yup.string()
-//         .required('Mật khẩu là bắt buộc'),
-// });
+const schema = Yup.object().shape({
+    email: Yup.string()
+        .email('Email không hợp lệ')
+        .required('Email là bắt buộc'),
+    password: Yup.string()
+        .required('Mật khẩu là bắt buộc'),
+});
 
-// const Login = () => {
+const Login = () => {
 
-//     const [message, setMessage] = useState("");
+    const [message, setMessage] = useState("");
 
-//     const location = useLocation();
+    const location = useLocation();
 
-//     const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const dispatch = useAppDispatch();
 
@@ -46,19 +46,19 @@ import './Login.scss';
         if (location.state) {
             const {message, email, password} = location.state;
 
-//             if (message) {
-//                 setMessage(message);
-//             }
+            if (message) {
+                setMessage(message);
+            }
 
-//             if (email) {
-//                 formData.email = email;
-//             }
+            if (email) {
+                formData.email = email;
+            }
 
-//             if (password) {
-//                 formData.password = password;
-//             }
+            if (password) {
+                formData.password = password;
+            }
 
-//             setFormData(formData);
+            setFormData(formData);
 
             // // Xóa state sau khi sử dụng
             navigate(location.pathname, {replace: true});
@@ -72,45 +72,45 @@ import './Login.scss';
     // Set initial state for form errors
     const [errors, setErrors] = useState<Partial<FormData>>({});
 
-//     // Set initial state for show/hide password
-//     const [isShowPassword, setIsShowPassword] = useState(false);
+    // Set initial state for show/hide password
+    const [isShowPassword, setIsShowPassword] = useState(false);
 
-//     // Set initial state for button disabled
-//     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+    // Set initial state for button disabled
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
-//     // Handle form data change
-//     const handleChange = (e: any) => {
-//         setFormData({...formData, [e.target.name]: e.target.value});
-//     };
+    // Handle form data change
+    const handleChange = (e: any) => {
+        setFormData({...formData, [e.target.name]: e.target.value});
+    };
 
-//     // Handle form submit
-//     const handleSubmit = (e: any) => {
-//         e.preventDefault();
+    // Handle form submit
+    const handleSubmit = (e: any) => {
+        e.preventDefault();
 
-//         // Set initial state for form errors
-//         const errors: Partial<FormData> = {};
+        // Set initial state for form errors
+        const errors: Partial<FormData> = {};
 
-//         // Set initial state for toast message
-//         let msg: string;
+        // Set initial state for toast message
+        let msg: string;
 
-//         // Set initial state for toast duration
-//         let duration: number;
+        // Set initial state for toast duration
+        let duration: number;
 
-//         // Set initial state for toast type
-//         let type: "success" | "error" | "warning" | "info" | "default" | undefined = "default";
+        // Set initial state for toast type
+        let type: "success" | "error" | "warning" | "info" | "default" | undefined = "default";
 
-//         // Set initial state for toast promise
-//         const toastPromise = toast.loading("Đang thực hiện yêu cầu...");
+        // Set initial state for toast promise
+        const toastPromise = toast.loading("Đang thực hiện yêu cầu...");
 
-//         // Set initial state for button disabled
-//         setIsButtonDisabled(true);
+        // Set initial state for button disabled
+        setIsButtonDisabled(true);
 
-//         // Gửi dữ liệu đăng ký lên server hoặc xử lý dữ liệu tại đây
-//         schema.validate(formData, {abortEarly: false})
-//             .then(async validData => {
+        // Gửi dữ liệu đăng ký lên server hoặc xử lý dữ liệu tại đây
+        schema.validate(formData, {abortEarly: false})
+            .then(async validData => {
 
-//                 // Reset form data
-//                 setErrors(errors);
+                // Reset form data
+                setErrors(errors);
 
                 // Call API
                 await loginMutation(validData).unwrap()
@@ -167,33 +167,33 @@ import './Login.scss';
                     });
 
 
-//             })
-//             .catch(validationErrors => { // Handle validation errors
-//                 if (typeof validationErrors.inner === "object") { // Validation errors
+            })
+            .catch(validationErrors => { // Handle validation errors
+                if (typeof validationErrors.inner === "object") { // Validation errors
 
-//                     validationErrors.inner.forEach((error: any) => { // Loop through errors
-//                         errors[error.path as keyof FormData] = error.message;
-//                     });
+                    validationErrors.inner.forEach((error: any) => { // Loop through errors
+                        errors[error.path as keyof FormData] = error.message;
+                    });
 
-//                     setErrors(errors); // Set form errors
+                    setErrors(errors); // Set form errors
 
-//                     msg = "Có lỗi xảy ra, vui lòng chờ trong giây lát rồi thử lại!";
+                    msg = "Có lỗi xảy ra, vui lòng chờ trong giây lát rồi thử lại!";
 
-//                     duration = 2000;
+                    duration = 2000;
 
-//                     type = "error";
-//                 }
+                    type = "error";
+                }
 
-//             })
-//             .finally(() => {
-//                 setIsButtonDisabled(false); // Set button disabled
+            })
+            .finally(() => {
+                setIsButtonDisabled(false); // Set button disabled
 
-//                 if (msg) { // Show toast message
-//                     // Update toast message
-//                     toast.update(toastPromise, {render: msg, type: type, isLoading: false, autoClose: duration});
-//                 }
-//             });
-//     };
+                if (msg) { // Show toast message
+                    // Update toast message
+                    toast.update(toastPromise, {render: msg, type: type, isLoading: false, autoClose: duration});
+                }
+            });
+    };
 
     return (
         <div className="tab-content font-family-san fs-6" style={{backgroundColor: "#fff"}}>
@@ -295,4 +295,4 @@ import './Login.scss';
     );
 }
 
-// export default Login
+export default Login
