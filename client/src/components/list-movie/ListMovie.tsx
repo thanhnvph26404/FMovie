@@ -14,7 +14,7 @@ type Props = {};
 const ListMovie = (props: Props) => {
     const [activeTab, setActiveTab] = useState("PHIM SẮP CHIẾU");
     const [modal, setModal] = useState("");
-    const [status, setStatus] = useState('sắp chiếu')
+    const [status, setStatus] = useState('Phim sắp chiếu')
     const handleGetMovie = (status: string, active: string) => {
         setActiveTab(active)
         setStatus(status)
@@ -28,7 +28,7 @@ const ListMovie = (props: Props) => {
                 <div className="flex justify-center">
                     <ul className="list-movies__nav flex justify-center">
                         <li
-                            onClick={() => handleGetMovie("sắp chiếu","PHIM SẮP CHIẾU")}
+                            onClick={() => handleGetMovie("Phim sắp chiếu","PHIM SẮP CHIẾU")}
                             className={`nav-item ${
                                 activeTab === "PHIM SẮP CHIẾU" ? "active" : ""
                             }`}
@@ -36,7 +36,7 @@ const ListMovie = (props: Props) => {
                             PHIM SẮP CHIẾU
                         </li>
                         <li
-                            onClick={() => handleGetMovie("đang chiếu","PHIM ĐANG CHIẾU")}
+                            onClick={() => handleGetMovie("Phim đang chiếu","PHIM ĐANG CHIẾU")}
                             className={`nav-item ${
                                 activeTab === "PHIM ĐANG CHIẾU" ? "active" : ""
                             }`}
@@ -44,7 +44,7 @@ const ListMovie = (props: Props) => {
                             PHIM ĐANG CHIẾU
                         </li>
                         <li
-                            onClick={() => handleGetMovie("suất đặc biệt","SUẤT CHIẾU ĐẶC BIỆT")}
+                            onClick={() => handleGetMovie("Suất chiếu đặc biệt","SUẤT CHIẾU ĐẶC BIỆT")}
                             className={`nav-item ${
                                 activeTab === "SUẤT CHIẾU ĐẶC BIỆT"
                                     ? "active"
