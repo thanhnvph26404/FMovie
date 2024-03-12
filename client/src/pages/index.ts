@@ -12,7 +12,7 @@ export {default as CinemaPageAdmin} from './admin/cinema/CinemaPage'
 export {default as CinemaAddPage} from './admin/cinema/CinemaAddPage'
 export {default as CinemaEditPage} from './admin/cinema/CinemaEditPage'
 
-export {default as VoucherPageAdmin} from './admin/voucher/VoucherPage'
+export {default as VoucherPageAdmin} from './admin/voucher/VoucherListPage'
 export {default as VoucherAddPage} from './admin/voucher/VoucherAddPage'
 export {default as VoucherEditPage} from './admin/voucher/VoucherEditPage'
 

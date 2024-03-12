@@ -1,14 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 type Props = {}
 
 const SelectPosition = (props: Props, ) => {
-    const seats = [];
+    const [selectedSeats, setSelectedSeats] = useState<number[]>([]);
 
-    // Tạo 100 ghế bán vé
+    const toggleSeat = (seatNumber: number) => {
+      // Kiểm tra xem ghế đã được chọn chưa
+      const seatIndex = selectedSeats.indexOf(seatNumber);
+      if (seatIndex === -1) {
+        // Nếu chưa được chọn, thêm vào mảng
+        setSelectedSeats([...selectedSeats, seatNumber]);
+      } else {
+        // Nếu đã được chọn, loại bỏ khỏi mảng
+        setSelectedSeats(selectedSeats.filter(seat => seat !== seatNumber));
+      }
+    };
+  
+    const seats = [];
     for (let i = 1; i <= 200; i++) {
+      const isSelected = selectedSeats.includes(i);
       seats.push(
-        <div className="seat-cell seat-used seat-for-way seat-normal" key={i}>
+        <div
+          style={{ cursor: 'pointer', backgroundImage: isSelected ? 'url(https://www.betacinemas.vn/Assets/global/img/booking/seat-select-normal.png)' : 'url(https://www.betacinemas.vn/Assets/global/img/booking/seat-unselect-normal.png)' }}
+          className={`seat-cell seat-used seat-for-way seat-normal ${isSelected ? 'selected' : ''}`}
+          key={i}
+          onClick={() => toggleSeat(i)}
+        >
           {`J${i}`}
         </div>
       );

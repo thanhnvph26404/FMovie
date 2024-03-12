@@ -19,11 +19,9 @@ return new class extends Migration
             $table->foreign('id_cinema')->references('id')->on('cinemas');
 
             $table->date('showDate');
-            $table->date('showTime');
-            $table->string('actor');
+            $table->time('showTime');
             $table->date('releaseDate');
             $table->string('language');
-            $table->string('genre');
             
             $table->unsignedBigInteger('id_room')->nullable();
             $table->foreign('id_room')->references('id')->on('rooms');

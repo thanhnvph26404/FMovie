@@ -1,17 +1,49 @@
 import { DeleteIcon, EditIcon } from "lucide-react";
-import React from "react";
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from "@/app/hooks";
+import {
+    useDeleteVoucherMutation,
+    useGetVoucherListQuery,
+} from "@/services/vouchers/vouchers.services";
+import { deleteVoucher, loadVoucherList } from "@/services/vouchers/vouchersSlices";
+import { toastError, toastSuccess } from "@/hook/Toast";
 import { Link } from "react-router-dom";
 
-type Props = {};
+const VoucherListPage = () => {
 
-const CinemaPage = (props: Props) => {
+    const dispatch = useAppDispatch();
+    const voucherState = useAppSelector(
+        (state) => state.vouchers.vouchers
+    );
 
-  const tHead = ["STT", "Mã voucher", "Tên voucher", "Số lượng", "Tình Trạng", ""];
-  const categoryState = [
-    { id: 1, code: "Beta Thanh Xuân", discount: "Hà Nội", condition: "0893343443"}
-  ]
-    // fdj
-    const handleDelete = async (id: string | number) => {};
+    const {
+        data: voucher,
+        isLoading: isVoucherListLoading,
+        isSuccess: isVoucherListSuccess,
+    } = useGetVoucherListQuery([]);
+
+    const [deleteVoucherApi, { isError: isDeleteVoucherError }] =
+    useDeleteVoucherMutation();
+
+    useEffect(() => {
+        dispatch(loadVoucherList(voucher?.data));
+    }, [isVoucherListSuccess]);
+
+
+    const tHead = ["STT", "Mã voucher", "Tên voucher", "Số lượng", "Giảm giá", "Hạn", "Tình Trạng", ""];
+
+
+    const handleDeleteVoucher = async (id: string | number) => {
+        try {
+          await deleteVoucherApi(id).unwrap().then(() => {
+            dispatch(deleteVoucher(id))
+          }).then(() => {
+            toastSuccess('Xóa voucher thành công')
+          })
+        } catch (error) {
+          toastError('Xóa voucher thất bại')
+        }
+      };
     return (
         <div>
             <div className="mx-auto mt-1">
@@ -58,30 +90,36 @@ const CinemaPage = (props: Props) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {categoryState?.map((item, index) => (
+                            {voucherState?.map((item, index) => (
                                 <tr key={index} className="border-b">
                                     <td className="py-2 px-3 text-base font-medium text-gray-900">
                                         {index + 1}
                                     </td>
                                     <td className="hidden px-3 py-2 text-base text-gray-500 sm:table-cell">
-                                        {item.code}
-                                </td>
-                                <td className="hidden px-3 py-2 text-base text-gray-500 sm:table-cell">
-                                        {item.discount}
-                                </td>
-                                <td className="hidden px-3 py-2 text-base text-gray-500 sm:table-cell">
-                                        {item.condition}
+                                        {item?.code}
+                                    </td>
+                                    <td className="hidden px-3 py-2 text-base text-gray-500 sm:table-cell">
+                                        {item?.name}
+                                    </td>
+                                    <td className="hidden px-3 py-2 text-base text-gray-500 sm:table-cell">
+                                        {item?.quantity}
+                                    </td>
+                                    <td className="hidden px-3 py-2 text-base text-gray-500 sm:table-cell">
+                                        {item?.discount}%
+                                    </td>
+                                    <td className="hidden px-3 py-2 text-base text-gray-500 sm:table-cell">
+                                        {item?.condition}
                                     </td>
                                     <td className="relative py-2 pl-3 text-right text-base font-medium flex">
                                         <Link
-                                            to={`/admin/voucher/edit/${item.id}`}
+                                            to={`/admin/voucher/edit/${item?.id}`}
                                             className="text-indigo-600 hover:text-indigo-900  p-2 mr-5 cursor-pointer"
                                         >
                                             <EditIcon />
                                         </Link>
                                         <div
                                             onClick={() =>
-                                                handleDelete(item.id!)
+                                                handleDeleteVoucher(item.id!)
                                             }
                                             className="p-2 text-red-400 cursor-pointer"
                                         >
@@ -99,4 +137,4 @@ const CinemaPage = (props: Props) => {
     );
 };
 
-export default CinemaPage;
+export default VoucherListPage;

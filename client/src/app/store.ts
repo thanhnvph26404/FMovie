@@ -15,6 +15,14 @@ import categoriesSlices from "@/services/categories/categoriesSlices";
 import { moviesApi } from "@/services/movies/movies.services";
 import movieSlice from "@/services/movies/moviesSlices";
 
+import { voucherApi } from "@/services/vouchers/vouchers.services";
+import vouchersSlices from "@/services/vouchers/vouchersSlices";
+
+import { cinemasApi } from "@/services/cinema/cinemas.services";
+import cinemasSlices from "@/services/cinema/cinemasSlices";
+// import {  cinemasApi } from '../services/cinema/cinemas.services';
+// import cinemasSlices from "@/services/cinema/cinemasSlices";
+
 import { seattypeApi } from "@/services/seatstype/seatstype.services";
 import seatstypeSlices from "@/services/seatstype/seatstypeSlices";
 import { roomApi } from "@/services/rooms/rooms.services";
@@ -43,6 +51,15 @@ const rootReducer = combineReducers({
     [moviesApi.reducerPath]: moviesApi.reducer,
     movies: movieSlice,
 
+    //voucher
+    [voucherApi.reducerPath]: voucherApi.reducer,
+    vouchers: vouchersSlices,
+
+    //cinemas
+    [cinemasApi.reducerPath]: cinemasApi.reducer,
+    cinemas: cinemasSlices,
+   
+
     //seattype
     [seattypeApi.reducerPath]: seattypeApi.reducer,
     seatstype: seatstypeSlices,
@@ -55,10 +72,15 @@ const rootReducer = combineReducers({
     [authApi.reducerPath]: authApi.reducer,
     auth: authSlice
 
+
 });
 const middleware = [
     categoryApi.middleware,
     moviesApi.middleware,
+
+    voucherApi.middleware,
+
+    cinemasApi.middleware,
 
     seattypeApi.middleware,
     roomApi.middleware,
