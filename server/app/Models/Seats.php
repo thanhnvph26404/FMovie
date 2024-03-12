@@ -11,7 +11,7 @@ class Seats extends Model
 
     protected $fillable = [
         'id_room',
-        'quantity',
+        'nameRow',
         'seatStatus',
         'id_seatstype'
     ];
