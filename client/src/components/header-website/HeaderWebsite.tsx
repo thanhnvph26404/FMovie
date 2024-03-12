@@ -1,10 +1,10 @@
-import {useCallback} from 'react'
+import {useCallback, useEffect} from 'react'
 import {NavLink, useNavigate} from 'react-router-dom'
 import './HeaderWebsite.scss'
 import {useSelector} from "react-redux";
 import {User} from "@/services/auth/auth.interface";
-import {useLogoutMutation} from "@/services/auth/auth.services.ts";
-import {logout} from "@/services/auth/authSlices.ts";
+import {useGetUserMutation, useLogoutMutation} from "@/services/auth/auth.services.ts";
+import {getUserToken, logout} from "@/services/auth/authSlices.ts";
 import {useAppDispatch} from "@/app/hooks.ts";
 
 const HeaderWebsite = () => {
@@ -17,7 +17,7 @@ const HeaderWebsite = () => {
     const user = useSelector((state: any) => state.auth.user) as User;
     const token = useSelector((state: any) => state.auth.token);
     const [logoutMutation] = useLogoutMutation();
-
+    const [getUser] = useGetUserMutation()
     const handleLogout = useCallback(async () => {
         await logoutMutation(token);
         dispatch(logout());
@@ -53,6 +53,24 @@ const HeaderWebsite = () => {
             linkTo: "/register"
         },
     ]
+
+
+    useEffect(() => {
+        if (token) {
+            const getUserByToken = async (token:string) => {
+                await getUser(token).unwrap().then((result) => {
+                    console.log(result);
+                    
+                    dispatch(getUserToken(result))
+                })
+                
+            }
+            getUserByToken(token)
+        } else {
+            navigate('/login')
+        }
+        
+    }, [token])
     return (
         <div className='w-full h-full '>
             <div className="pre-header">

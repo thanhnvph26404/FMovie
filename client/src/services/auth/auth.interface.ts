@@ -10,4 +10,9 @@ export interface User {
 export interface AuthState {
     user: User | null,
     token: string | null
+    
+}
+export interface AuthLogin {
+    token: string | null
+    role: string 
 }

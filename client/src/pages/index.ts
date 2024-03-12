@@ -12,10 +12,12 @@ export {default as CinemaPageAdmin} from './admin/cinema/CinemaPage'
 export {default as CinemaAddPage} from './admin/cinema/CinemaAddPage'
 export {default as CinemaEditPage} from './admin/cinema/CinemaEditPage'
 
-export {default as VoucherPageAdmin} from './admin/voucher/VoucherPage'
+export {default as VoucherPageAdmin} from './admin/voucher/VoucherListPage'
 export {default as VoucherAddPage} from './admin/voucher/VoucherAddPage'
 export {default as VoucherEditPage} from './admin/voucher/VoucherEditPage'
 
 export {default as SeatPageAdmin} from './admin/seat/SeatListPage'
 export {default as SeatAddPage} from './admin/seat/SeatAddPage'
 export {default as SeatEditPage} from './admin/seat/SeatEditPage'
+export {default as LoginPage} from './auth/login/Login'
+export {default as RegisterPage} from './auth/register/Register'

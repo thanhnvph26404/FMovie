@@ -11,6 +11,8 @@ import { Link } from "react-router-dom";
 import MovieIcon from "../../assets/icon/MovieIcon";
 import HomeIcon from "../../assets/icon/HomeIcon";
 import MovieType from "../../assets/icon/MovieType";
+import CinemaIcon from "@/assets/icon/CinemaIcon";
+import VoucherIcon from "@/assets/icon/VoucherIcon";
 
 interface Children {
     name: string;
@@ -38,11 +40,7 @@ const navigation: SubNav[] = [
         name: "Phim",
         icon: MovieIcon,
         current: false,
-        children: [
-            { name: "Engineering", href: "#" },
-            { name: "Human Resources", href: "#" },
-            { name: "Customer Success", href: "#" },
-        ],
+        href: 'movie'
     },
     {
         name: "Thể Loại",
@@ -52,22 +50,17 @@ const navigation: SubNav[] = [
     },
     {
         name: "Rạp Phim",
-        icon: CalendarIcon,
+        icon: CinemaIcon,
         current: false,
-        children: [
-            { name: "Danh sách ", href: "/admin/cinema" },
-            { name: "Thêm rạp", href: "/admin/cinema/add" },
-        ],
+        href: 'cinema'
     },
 
     {
         name: "Voucher",
-        icon: MovieIcon,
+        icon: VoucherIcon,
         current: false,
-        children: [
-            { name: "Danh sách ", href: "/admin/voucher" },
-            { name: "Thêm voucher", href: "/admin/voucher/add" },
-        ],
+        href: 'voucher'
+        
     },
 
     {
