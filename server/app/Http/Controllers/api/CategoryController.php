@@ -93,6 +93,6 @@ class CategoryController extends Controller
             return response()->json(['message' => 'Không tìm thấy']) ;
         }
         $category->delete();
-        return response()->json(['message' => 'Xoá rạp thành công']) ;
+        return response()->json(['message' => 'Xoá thành công']) ;
     }
 }
