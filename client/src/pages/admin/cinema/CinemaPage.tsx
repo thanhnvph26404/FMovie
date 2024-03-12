@@ -1,39 +1,38 @@
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { toastError, toastSuccess } from "@/hook/Toast";
-import { deleteCategory, loadCategoryList } from "@/services/categories/categoriesSlices";
 import { useDeleteCinemaMutation, useGetCinemaListQuery } from "@/services/cinema/cinemas.services";
+import { deleteCinema, loadCinemaList } from "@/services/cinema/cinemasSlices";
 import { DeleteIcon, EditIcon } from "lucide-react";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
+// type Props = {};
 
-type Props = {};
-
-const CinemaPage = (props: Props) => {
+const CinemaPage = () => {
     const dispatch = useAppDispatch();
-    const categoryState = useAppSelector(
-        (state) => state.categories.categories
+    const cinemaState = useAppSelector(
+        (state) => state.cinemas.cinemas
   );
   
     const {
-        data: category,
-        isLoading: isCategoryListLoading,
-        isSuccess: isCategoryListSuccess,
+        data: cinema,
+        isLoading: isCinemaListLoading,
+        isSuccess: isCinemaListSuccess,
     } = useGetCinemaListQuery([]);
     //delete
-    const [deleteCinemaApi, { isError: isDeleteCategoryError }] =
+    const [deleteCinemaApi, { isError: isDeleteCinemaError }] =
     useDeleteCinemaMutation();
   
     useEffect(() => {
-        dispatch(loadCategoryList(category?.data));
-    }, [isCategoryListSuccess]);
+        dispatch(loadCinemaList(cinema?.data));
+    }, [isCinemaListSuccess]);
 
 
-  const tHead = ["STT", "Tên rạp", "Địa chỉ", "Sđt", ""];
+  const tHead = ["STT", "Tên rạp", "Địa chỉ", "Sđt", "Trạng thái"];
 
     const handleDelete = async (id: string | number) => {
         try {
             await deleteCinemaApi(id).unwrap().then(() => {
-              dispatch(deleteCategory(id))
+              dispatch(deleteCinema(id))
             }).then(() => {
               toastSuccess('Xóa rạp thành công')
             })
@@ -88,7 +87,7 @@ const CinemaPage = (props: Props) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {categoryState?.map((item, index) => (
+                            {cinemaState?.map((item, index) => (
                                 <tr key={index} className="border-b">
                                     <td className="py-2 px-3 text-base font-medium text-gray-900">
                                         {index + 1}

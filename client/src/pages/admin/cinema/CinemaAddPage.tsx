@@ -2,7 +2,6 @@ import { useAppDispatch } from '@/app/hooks';
 import { toastError, toastSuccess } from '@/hook/Toast';
 import { useAddCinemaMutation } from '@/services/cinema/cinemas.services';
 import { addNewCinema } from '@/services/cinema/cinemasSlices';
-import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import {
   Form,
@@ -25,9 +24,9 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Textarea } from '@/components/ui/textarea';
-type Props = {}
 
-const CinemaAddPage = (props: Props) => {
+
+const CinemaAddPage = () => {
 
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -36,26 +35,29 @@ const CinemaAddPage = (props: Props) => {
   const FormSchema = z.object({
     name: z.string().min(2, {
       message: "Tên rạp tối thiểu 2 kí tự",
-      
     }),
-    screeningRooms: z.string({
-      required_error: "Không được để trống",
-    }),
-    address: z.string({
-      required_error:"Không được để trống",
-    }),
-    description:  z.string({
-      required_error: "Không được để trống",
-    }),
-    phoneContact:  z.string({
-      required_error: "Không được để trống",
-    }),
+    screeningRooms: z.string().min(1, {
+      message: "Phòng chiếu không được để trống.",
+  }),
+    address: z.string().min(3, {
+      message: "Địa chỉ phải chứa ít nhất 3 ký tự",
+  }),
+    description:  z.string().min(1, {
+      message: "Vui lòng nhập mô tả",
+  }),
+    phoneContact:  z.string().min(10, {
+      message: "Số điện thoại phải chứa ít nhất 10 ký tự.",
+  }),
     
   })
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       name: "",
+      screeningRooms: "",
+      address: "",
+      description: "",
+      phoneContact: ""
     },
   })
  
@@ -100,6 +102,7 @@ const CinemaAddPage = (props: Props) => {
         />
     </div>
     <div>
+      
     <FormField
           control={form.control}
           name="screeningRooms"
@@ -125,7 +128,6 @@ const CinemaAddPage = (props: Props) => {
               <FormControl>
                 <Textarea
                   placeholder="Mô tả"
-                  resize="none"
                   {...field}
                 />
               </FormControl>
@@ -195,12 +197,11 @@ const CinemaAddPage = (props: Props) => {
     
   </div>
 
-<label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Ảnh</label>
+{/* <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Ảnh</label>
 <input   name="image"      
       className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file" />
+ */}
 
-  <div>
-  </div>
 </section>
         <Button  type="submit">Thêm rạp</Button>
       </form>
