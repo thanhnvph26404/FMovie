@@ -20,9 +20,7 @@ const ListMovie = (props: Props) => {
         setStatus(status)
     }
     const { data: movies } = useGetMoviesByStatusQuery(status)
-    console.log(movies);
     
-
     return (
         <Drawer>
             <div className="list-movies">
