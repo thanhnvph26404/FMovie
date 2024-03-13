@@ -80,7 +80,8 @@ const Register = () => {
     });
 
     const  onSubmit = async (data: z.infer<typeof FormSchema>) =>  {
-      const dateFormat = format(new Date(data.date), "MM/dd/yyyy");
+      const dateFormat = format(new Date(data.date), "yyyy-MM-dd");
+      console.log(dateFormat);
       
         await registerMutation({ ...data, date: dateFormat }).unwrap().then(() => {
           toastSuccess('Đăng kí thành công')
