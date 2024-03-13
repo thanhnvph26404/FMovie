@@ -8,11 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Ticket extends Model
 {
     use HasFactory;
-    // protected $table = 'categories';
+    protected $table = 'tickets';
 
     protected $fillable = [
         'id_user',
-        'quantity',
         'id_seat',
         'id_showtime'
         ];
@@ -25,6 +24,7 @@ class Ticket extends Model
     {
         return $this->belongsTo(Seats::class, 'id_seat');
     }
+    
     public function showtime()
     {
         return $this->belongsTo(Showtimes::class, 'id_showtime');

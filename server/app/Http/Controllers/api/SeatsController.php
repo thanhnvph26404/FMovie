@@ -17,7 +17,7 @@ class SeatsController extends Controller
     public function index()
     {
         $seats = Seats::all();
-        return SeatsResource::collection($seats);
+        return response()->json(['seats' => $seats]);
     }
 
     /**
@@ -117,6 +117,8 @@ public function store(Request $request)
             return response()->json(['message' => 'Không tìm thấy ']);
         }
         $seats->delete();
-        return response()->json(['message' => 'Xóa thành công thấy ']);
+        return response()->json(['message' => 'Xóa thành công']);
     }
+
+
 }

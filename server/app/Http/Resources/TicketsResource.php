@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\SeatsResources;
 
 class TicketsResource extends JsonResource
 {
@@ -18,18 +19,16 @@ class TicketsResource extends JsonResource
         return [
             'id' => $this->id,
             'id_user' => $this->id_user,
-            // 'total' => $this->total,
             'id_seat' => $this->id_seat,
-            'price' => $this->seat->price,
-            'seatsType' => $this->seat->seatstype->name,
             'id_showtime' => $this->id_showtime,
-            'movie_name' => $this->showtime->movie->name,
-            'time' => $this->showtime->movie->time,
-            'date' => $this->showtime->showDate,
-            'cinema' => $this->showtime->cinema->name,
-
-            // 'trailer_url' => $this->trailer
-
+            'showtime' => $this->showtime->showTime,
+            'showTime' => $this->showtime->showDate,
+            'language' => $this->showtime->language,
+            'nameroom' => $this->showtime->room->name,
+            // 'seats' => $this->seat,
+            'seat_type' => $this->seat->seatstype->name, // Chỉ lấy trường 'name' của 'seatstype'
+            'price' => $this->seat->seatstype->price, // Chỉ lấy trường 'name' của 'seatstype'
+            'nameRow' => $this->seat->nameRow, // Chỉ lấy trường 'name' của 'seatstype'
         ];
     }
 }
