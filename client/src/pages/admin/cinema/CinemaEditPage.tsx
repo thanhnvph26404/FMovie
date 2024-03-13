@@ -2,7 +2,7 @@ import { useAppDispatch } from '@/app/hooks'
 import { toastError, toastSuccess } from '@/hook/Toast'
 import { useEditCinemaMutation, useGetCinemaQuery } from '@/services/cinema/cinemas.services'
 import { editNewCinema } from '@/services/cinema/cinemasSlices'
-import React, { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import {
   Form,
@@ -26,9 +26,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Textarea } from '@/components/ui/textarea';
 
-type Props = {}
-
-const CinemaEditPage = (props: Props) => {
+const CinemaEditPage = () => {
   const {id} = useParams()
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -43,10 +41,10 @@ useEffect(() => {
   if (data) {
     form.reset({
       name: data?.data.name,
-    screeningRooms: data?.data.screeningRooms,
-    address: data?.data.address,
-    description: data?.data.description,
-    phoneContact: data?.data.phoneContact
+      screeningRooms: Number(data?.data.screeningRooms),
+      address: data?.data.address,
+      description: data?.data.description,
+      phoneContact: data?.data.phoneContact
     })
   }
   
@@ -55,23 +53,22 @@ useEffect(() => {
 },[data])
 
 const FormSchema = z.object({
-  
   name: z.string().min(2, {
     message: "Tên rạp tối thiểu 2 kí tự",
     
   }),
-  screeningRooms: z.string({
-    required_error: "Không được để trống",
-  }),
-  address: z.string({
-    required_error:"Không được để trống",
-  }),
-  description:  z.string({
-    required_error: "Không được để trống",
-  }),
-  phoneContact:  z.string({
-    required_error: "Không được để trống",
-  }),
+  screeningRooms: z.number().min(1, {
+    message: "Phòng chiếu không được để trống.",
+}),
+  address: z.string().min(3, {
+    message: "Địa chỉ phải chứa ít nhất 3 ký tự",
+}),
+  description:  z.string().min(1, {
+    message: "Vui lòng nhập mô tả",
+}),
+  phoneContact:  z.string().min(10, {
+    message: "Số điện thoại phải chứa ít nhất 10 ký tự.",
+}),
   
 })
 const form = useForm<z.infer<typeof FormSchema>>({
@@ -79,7 +76,7 @@ const form = useForm<z.infer<typeof FormSchema>>({
   resolver: zodResolver(FormSchema),
   defaultValues: {
     name: data?.data.name,
-    screeningRooms: String(data?.data.screeningRooms),
+    screeningRooms: Number(data?.data.screeningRooms),
     address: data?.data.address,
     description: data?.data.description,
     phoneContact: data?.data.phoneContact
@@ -92,7 +89,7 @@ const onSubmit = async (data: z.infer<typeof FormSchema>) => {
   const formData = {
     id,
     name: data.name,
-    screeningRooms: String(data?.screeningRooms),
+    screeningRooms: Number(data?.screeningRooms),
     address: data.address,
     description: data.description,
     phoneContact: data.phoneContact
@@ -120,7 +117,7 @@ const onSubmit = async (data: z.infer<typeof FormSchema>) => {
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
         
          <section className="relative border border-gray-100 space-y-3 max-w-screen-md mx-auto rounded-md bg-white p-6 shadow-xl ">
-  <h1  className="mb-6 text-xl font-semibold lg:text-2xl">Thêm Rạp Phim</h1>
+  <h1  className="mb-6 text-xl font-semibold lg:text-2xl">Cập Nhật Rạp Phim</h1>
 
   <div  className="grid gap-3 md:grid-cols-2">
     <div> 
@@ -164,7 +161,6 @@ const onSubmit = async (data: z.infer<typeof FormSchema>) => {
               <FormControl>
                 <Textarea
                   placeholder="Mô tả"
-                  resize="none"
                   {...field}
                 />
               </FormControl>
@@ -235,12 +231,12 @@ const onSubmit = async (data: z.infer<typeof FormSchema>) => {
   </div>
 
 
-<label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Ảnh</label>
+{/* <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Ảnh</label>
 <input   name="image"
       
       className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file" />
 
-  
+   */}
 </section>
         <Button  type="submit">Cập nhật</Button>
       </form>

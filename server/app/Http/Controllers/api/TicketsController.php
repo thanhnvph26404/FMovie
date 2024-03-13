@@ -119,6 +119,6 @@ class TicketsController extends Controller
             return response()->json(['message'=>'Không tìm thấy ']);
         }
         $tickets->delete();
-        return response()->json(['message'=>'Xóa thành công thấy ']);
+        return response()->json(['message'=>'Xóa thành công ']);
     }
 }

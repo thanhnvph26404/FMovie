@@ -11,6 +11,7 @@ class Room extends Model
 
     protected $fillable = [
         'id_cinema',
+        'quantity',
         'name'
         ];
 
@@ -18,4 +19,9 @@ class Room extends Model
     {
         return $this->belongsTo(Cinema::class, 'id_cinema');
     }
+    public function seats()
+    {
+        return $this->hasMany(Seats::class, 'id_room');
+    }
+
 }

@@ -109,6 +109,15 @@ class MoviesController extends Controller
         return new MoviesResource($movie);
     }
 
+    public function destroy(string $id)
+    {
+        $movie = Movies::find($id);
+        if(!$movie){
+            return response()->json(['message' => 'Không tìm thấy phim']) ;
+        }
+        $movie->delete();
+        return response()->json(['message' => 'Xoá phim thành công']) ;
+    }
 
     public function search(Request $request)
     {
@@ -152,11 +161,14 @@ class MoviesController extends Controller
         }
 
         // Lọc phim theo danh mục
-        $movies = Movies::where('id_category', $category->id)->get();
+        $movies = Movies::whereHas('categories', function ($query) use ($category) {
+            $query->where('id', $category->id);
+        })->get();
 
         // Trả về danh sách phim dưới dạng JSON
         return MoviesResource::collection($movies);
     }
+
 
 
     // Các phương thức khác đã được bao gồm ở trên
@@ -175,6 +187,4 @@ class MoviesController extends Controller
         // Trả về danh sách phim dưới dạng JSON
         return MoviesResource::collection($movies);
     }
-
-
 }
