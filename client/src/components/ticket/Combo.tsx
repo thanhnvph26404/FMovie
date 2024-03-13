@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { MdAdd, MdOutlineRemove } from 'react-icons/md'
 
 type Props = {}
