@@ -1,13 +1,15 @@
 <?php
 
 namespace App\Http\Controllers\api;
-
+use Illuminate\Console\Scheduling\Schedule;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SeatsResource;
 use App\Models\Seats;
 use App\Models\Room;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Carbon\Carbon;
 
 class SeatsController extends Controller
 {
@@ -28,47 +30,47 @@ class SeatsController extends Controller
         //
     }
 
-   /**
- * Store a newly created resource in storage.
- */
-public function store(Request $request)
-{
-    $validator = Validator::make($request->all(), [
-        'id_room' => 'required|exists:rooms,id',
-        // Thêm các quy tắc kiểm tra khác tùy theo yêu cầu của bạn
-    ]);
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id_room' => 'required|exists:rooms,id',
+            // Thêm các quy tắc kiểm tra khác tùy theo yêu cầu của bạn
+        ]);
 
-    if ($validator->fails()) {
-        return response()->json(['errors' => $validator->errors()], 400);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
+
+        $roomId = $request->input('id_room');
+
+        $room = Room::find($roomId);
+
+        // Kiểm tra xem phòng có tồn tại không
+        if (!$room) {
+            return response()->json(['message' => 'Không tìm thấy phòng'], 404);
+        }
+
+        // Kiểm tra số lượng ghế đã được thêm vào trong phòng
+        $roomSeatsCount = $room->seats()->count();
+
+        // Tính số lượng ghế còn lại có thể được thêm vào phòng
+        $remainingSeats = $room->quantity - $roomSeatsCount;
+
+        // Kiểm tra xem có đủ ghế trống để thêm vào không
+        if ($remainingSeats <= 0) {
+            return response()->json(['message' => 'Phòng đã đủ số lượng ghế tối đa'], 400);
+        }
+
+        // Tạo ghế mới
+        $seat = new Seats();
+        $seat->fill($request->all());
+        $seat->save();
+
+        return new SeatsResource($seat);
     }
-
-    $roomId = $request->input('id_room');
-
-    $room = Room::find($roomId);
-
-    // Kiểm tra xem phòng có tồn tại không
-    if (!$room) {
-        return response()->json(['message' => 'Không tìm thấy phòng'], 404);
-    }
-
-    // Kiểm tra số lượng ghế đã được thêm vào trong phòng
-    $roomSeatsCount = $room->seats()->count();
-
-    // Tính số lượng ghế còn lại có thể được thêm vào phòng
-    $remainingSeats = $room->quantity - $roomSeatsCount;
-
-    // Kiểm tra xem có đủ ghế trống để thêm vào không
-    if ($remainingSeats <= 0) {
-        return response()->json(['message' => 'Phòng đã đủ số lượng ghế tối đa'], 400);
-    }
-
-    // Tạo ghế mới
-    $seat = new Seats();
-    $seat->fill($request->all());
-    $seat->save();
-
-    return new SeatsResource($seat);
-}
 
 
 
@@ -120,5 +122,5 @@ public function store(Request $request)
         return response()->json(['message' => 'Xóa thành công']);
     }
 
-
+    
 }

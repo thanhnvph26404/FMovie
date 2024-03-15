@@ -50,6 +50,7 @@ Route::get('/movies/filter-by-category/{categoryName}', [MoviesController::class
 Route::get('/movies/filter-by-status/{status}', [MoviesController::class, 'filterByStatus']);
 Route::get('showtimes/filter', [ShowtimesController::class, 'filterByDate']); // lọc theo ngày chiếu
 Route::post('tickets/book', [TicketsController::class, 'bookTicket']); // Đặt vé
+Route::post('/select-seat', [SeatsController::class, 'chooseSeat']);
 Route::resource('trailers',TrailersController::class);
 Route::resource('showtimes',ShowtimesController::class);
 Route::resource('transactionvoucher',TransactionVoucherLinkController::class);
