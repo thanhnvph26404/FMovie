@@ -5,7 +5,7 @@ import Combo from './Combo'
 
 type Props = {}
 
-const InfoPayment = (props: Props) => {
+const InfoPayment = ({form,setForm}) => {
 
     const [isVoucher,setIsVoucher]= useState(Boolean(false))
     const [isPoint,setIsPoint]= useState(Boolean(false))
@@ -60,13 +60,13 @@ const InfoPayment = (props: Props) => {
             <tr className="border-none">
             
               <td className="text-md text-black font-thin px-2 py-2 whitespace-nowrap">
-                Mark
+                {form?.name}
               </td>
               <td className="text-md text-black font-thin px-2 py-2 whitespace-nowrap">
-               0987654322
+                {form?.phone_number}
               </td>
               <td className="text-md text-black font-thin px-2 py-2 whitespace-nowrap">
-                huyen@gmail.com
+                {form?.email} 
               </td>
             </tr>
            
