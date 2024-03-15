@@ -19,6 +19,7 @@ class ShowtimesResource extends JsonResource
         foreach ($this->movie->categories as $category) {
             $categoryIds[] = $category['id'];
         }
+        $availableSeatsCount = $this->room->seats()->where('seatStatus', 'Chưa đặt')->count();
 
         $categoryNames = [];
         foreach ($this->movie->categories as $category) {
@@ -50,6 +51,7 @@ class ShowtimesResource extends JsonResource
             'rooms' => [
                 'name'=> $this->room->name,
                 'quantity'=> $this->room->quantity,
+                'available_seats_count' => $availableSeatsCount, // Số lượng ghế chưa đặt
             ],
                 'showDate' => $this->showDate,
                 'showTime' => $this->showTime,
