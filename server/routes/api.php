@@ -9,7 +9,6 @@ use App\Http\Controllers\api\UserController;
 use App\Http\Controllers\api\GenreController;
 use App\Http\Controllers\api\RoomsController;
 use App\Http\Controllers\api\SeatsController;
-use App\Http\Controllers\api\VNPayController;
 use App\Http\Controllers\api\CinemaController;
 use App\Http\Controllers\api\MoviesController;
 use App\Http\Controllers\api\TicketsController;
@@ -21,6 +20,7 @@ use App\Http\Controllers\api\ShowtimesController;
 use App\Http\Controllers\api\TransactionController;
 use App\Http\Resources\TransactionVoucherLinkResource;
 use App\Http\Controllers\api\TransactionVoucherLinkController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -59,5 +59,8 @@ Route::resource('seatstype',SeatsTypeController::class);
 Route::resource('tickets',TicketsController::class);
 Route::resource('transaction',TransactionController::class);
 
-Route::get('/payment', [VNPayController::class, 'index']);
-Route::get('/vnpay/callback', [VNPayController::class, 'callback']);
+Route::post('/vnpay/callback', [TransactionController::class, 'handleVNPayCallback'])
+    ->name('vnpay.callback');
+
+Route::get('/vnpay/return', [TransactionController::class, 'handleVNPayReturn'])
+    ->name('vnpay.return');

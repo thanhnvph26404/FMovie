@@ -10,75 +10,69 @@ use App\Http\Resources\TransactionResource;
 
 class TransactionController extends Controller
 {
-    // Phương thức để lấy tất cả các giao dịch
-    public function index()
-    {
-        $transaction = Transaction::all();
-        return TransactionResource::collection($transaction);
-    }
-
-    // Phương thức để lấy một giao dịch cụ thể dựa trên ID
-    public function show(string $id)
-    {
-        $transaction = Transaction::find($id);
-        if (!$transaction) {
-            return response()->json(['message' => 'Không tìm thấy giao dịch'], 404);
-        }
-        return new TransactionResource($transaction);
-    }
-
-    // Phương thức để tạo một giao dịch mới
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'id_user' => 'nullable|exists:users,id',
             'totalQuantity' => 'required|integer',
-            'paymentMethod' => 'required|in:Tiền mặt,Chuyển khoản',
-            'time' => 'required|date_format:H:i:s',
+            'paymentMethod' => 'required|in:Cash,Transfer',
             'totalPayment' => 'required|numeric',
-            'paymentStatus' => 'required|in:Đã thanh toán,Chưa thanh toán',
         ]);
-         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        $transaction = Transaction::create($request->all());
-        return new TransactionResource($transaction);
+        $transaction = Transaction::create([
+            'id_user' => $request->input('id_user'),
+            'totalQuantity' => $request->input('totalQuantity'),
+            'paymentMethod' => $request->input('paymentMethod'),
+            'time' => now()->toTimeString(),
+            'totalPayment' => $request->input('totalPayment'),
+            'paymentStatus' => 'Chưa thanh toán',
+        ]);
+
+        if ($request->input('paymentMethod') === 'Tiền mặt') {
+            $transaction->paymentStatus = 'Đã thanh toán';
+            $transaction->save();
+
+            return response()->json([
+                'message' => 'Thanh toán thành công',
+                'totalPayment' => $transaction->totalPayment,
+            ]);
+        }
+
+        return $this->handleVNPayPayment($transaction);
     }
 
-    // Phương thức để cập nhật một giao dịch
-    public function update(Request $request, string $id)
+    protected function handleVNPayPayment(Transaction $transaction)
     {
-        $validator = Validator::make($request->all(),[
-            'id_user' => 'nullable|exists:users,id',
-            'totalQuantity' => 'required|integer',
-            'paymentMethod' => 'required|in:Tiền mặt,Chuyển khoản',
-            'time' => 'required|date_format:H:i:s',
-            'totalPayment' => 'required|numeric',
-            'paymentStatus' => 'required|in:Đã thanh toán,Chưa thanh toán',
+        return response()->json([
+            'message' => 'Đã bắt đầu thanh toán VNPay',
+            'paymentData' => 'Thay thế dữ liệu này bằng dữ liệu thanh toán VNPay thực tế',
         ]);
-         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-
-        $transaction = Transaction::find($id);
-        if (!$transaction) {
-            return response()->json(['message' => 'Không tìm thấy giao dịch'], 404);
-        }
-
-        $transaction->update($request->all());
-        return new TransactionResource($transaction);
     }
 
-    // Phương thức để xóa một giao dịch
-    public function destroy(string $id)
+    public function handleVNPayCallback(Request $request)
     {
-        $transaction = Transaction::find($id);
-        if (!$transaction) {
-            return response()->json(['message' => 'Không tìm thấy giao dịch'], 404);
-        }
+        $transactionId = $request->input('vnp_TxnRef'); 
+        $transaction = Transaction::find($transactionId);
 
-        $transaction->delete();
-        return response()->json(['message' => 'Xóa thành công'], 200);
+        if ($transaction) {
+            $transaction->paymentStatus = 'Đã thanh toán'; 
+            $transaction->save();
+        }
+    }
+
+    public function handleVNPayReturn(Request $request)
+    {
+        $transactionId = $request->input('vnp_TxnRef'); 
+        $transaction = Transaction::find($transactionId);
+
+        if ($transaction) {
+            $paymentStatus = $request->input('vnp_ResponseCode') === '00' ? 'Đã thanh toán' : 'Không thành công';
+            $transaction->paymentStatus = $paymentStatus;
+            $transaction->save();
+        }
     }
 }
