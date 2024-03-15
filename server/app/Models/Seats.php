@@ -24,5 +24,9 @@ class Seats extends Model
     {
         return $this->belongsTo(SeatsType::class, 'id_seatstype');
     }
+    public function showtimes()
+    {
+        return $this->belongsToMany(Showtimes::class, 'seats_showtimes', 'seats_id', 'showtimes_id');
+    }
 
 }
