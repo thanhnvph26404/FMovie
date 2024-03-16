@@ -3,8 +3,9 @@ import { DrawerClose } from "../ui/drawer";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import "./index.scss";
-type Props = {};
+import { format } from "date-fns";
 const Showtime = () => {
+
     return (
         <>
             <div className="bg-white text-[#333] p-6   max-w-[1000px] w-full">
