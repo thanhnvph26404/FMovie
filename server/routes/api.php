@@ -20,7 +20,7 @@ use App\Http\Controllers\api\ShowtimesController;
 use App\Http\Controllers\api\TransactionController;
 use App\Http\Resources\TransactionVoucherLinkResource;
 use App\Http\Controllers\api\TransactionVoucherLinkController;
-
+use App\Http\Controllers\api\VNPayController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,10 +58,9 @@ Route::resource('rooms',RoomsController::class);
 Route::resource('seats',SeatsController::class);
 Route::resource('seatstype',SeatsTypeController::class);
 Route::resource('tickets',TicketsController::class);
-Route::resource('transaction',TransactionController::class);
+Route::post('paymentHome',[TransactionController::class, 'PaymentHome']);
+Route::post('paymentOnline',[TransactionController::class, 'PaymentOnline']);
+Route::post('paymentOnline/update',[TransactionController::class, 'UpdatePaymentOnline']);
 
-Route::post('/vnpay/callback', [TransactionController::class, 'handleVNPayCallback'])
-    ->name('vnpay.callback');
-
-Route::get('/vnpay/return', [TransactionController::class, 'handleVNPayReturn'])
-    ->name('vnpay.return');
+Route::post('/payment', [VNPayController::class, 'index']);
+Route::get('/vnpay/callback', [VNPayController::class, 'callback'])->name('vnpay.callback');

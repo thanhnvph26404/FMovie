@@ -108,19 +108,19 @@ class SeatsController extends Controller
 
     public function chooseSeat(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'id_user' => 'required|exists:users,id',
-            'id_seat' => 'required',
-            'id_seat.*' => 'exists:seats,id',
-            'id_showtime' => 'required|exists:showtimes,id',
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     'id_user' => 'required|exists:users,id',
+        //     'id_seat' => 'required',
+        //     'id_seat.*' => 'exists:seats,id',
+        //     'id_showtime' => 'required|exists:showtimes,id',
+        // ]);
 
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => 422,
-                'message' => $validator->messages()
-            ], 422);
-        }
+        // if ($validator->fails()) {
+        //     return response()->json([
+        //         'status' => 422,
+        //         'message' => $validator->messages()
+        //     ], 422);
+        // }
 
         // Chuyển đổi id_seat thành mảng nếu nó không phải là một mảng
         $id_seat = $request->input('id_seat');
