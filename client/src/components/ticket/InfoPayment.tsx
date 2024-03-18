@@ -1,35 +1,33 @@
 import React, { useState } from 'react'
 import { FaRegArrowAltCircleDown } from 'react-icons/fa'
-import { MdAdd, MdOutlineRemove } from 'react-icons/md'
+import { NumericFormat } from 'react-number-format';
 import Combo from './Combo'
 
-type Props = {}
-
-const InfoPayment = ({form,setForm}) => {
+const InfoPayment = ({form,setForm, comboArr,handleAddCombo,handleMinusCombo,}) => {
 
     const [isVoucher,setIsVoucher]= useState(Boolean(false))
-    const [isPoint,setIsPoint]= useState(Boolean(false))
+    // const [isPoint,setIsPoint]= useState(Boolean(false))
 
-    const payments = [
-        {
-          key:"1",
-            imgPayment:"https://www.betacinemas.vn/Assets/global/img/booking/ic-card-vn.png",
-            title:"Thẻ Nội Địa"
-        },
+    // const payments = [
+    //     {
+    //       key:"1",
+    //         imgPayment:"https://www.betacinemas.vn/Assets/global/img/booking/ic-card-vn.png",
+    //         title:"Thẻ Nội Địa"
+    //     },
 
-        { key:"2",
-            imgPayment:"https://www.betacinemas.vn/Assets/global/img/booking/shopeepay.png",
-            title:"Ví ShoppyPay"
-        },
-        { key:"3",
-            imgPayment:"https://www.betacinemas.vn/Assets/global/img/booking/momo.ico",
-            title:"Ví Momo"
-        },
-        { key:"4",
-            imgPayment:"https://www.betacinemas.vn/Assets/global/img/booking/zalopay.png",
-            title:"Ví ZaloPay"
-        },
-    ]
+    //     { key:"2",
+    //         imgPayment:"https://www.betacinemas.vn/Assets/global/img/booking/shopeepay.png",
+    //         title:"Ví ShoppyPay"
+    //     },
+    //     { key:"3",
+    //         imgPayment:"https://www.betacinemas.vn/Assets/global/img/booking/momo.ico",
+    //         title:"Ví Momo"
+    //     },
+    //     { key:"4",
+    //         imgPayment:"https://www.betacinemas.vn/Assets/global/img/booking/zalopay.png",
+    //         title:"Ví ZaloPay"
+    //     },
+    // ]
   return (
     <div className='col-lg-8 col-md-8 col-12 w-full '>
         <div>
@@ -91,7 +89,9 @@ const InfoPayment = ({form,setForm}) => {
                 <p className='uppercase text-md font-medium ml-4 text-xl' >combo ưu đãi</p>
             </div>
         </div>
-       <Combo />
+       <Combo comboArr={comboArr} handleAddCombo={handleAddCombo} 
+        handleMinusCombo={handleMinusCombo}
+       />
         </div>
 
         <div className='mt-8'>
@@ -137,21 +137,39 @@ const InfoPayment = ({form,setForm}) => {
             <div>
                <div className='flex justify-end items-center space-x-6 font-medium text-xl'>
                 <span className='text-blue-900'>Tổng tiền:</span>
-                <span className='text-red-800'>40.000 vnđ</span>
+                <span className='text-red-800'>
+                <NumericFormat
+                      value={form?.total}
+                      thousandSeparator
+                      displayType="text"
+                    />
+                   vnđ</span>
                </div>
                <div className='flex justify-end items-center space-x-6 font-medium text-xl'>
                 <span className='text-blue-900'>Số tiền được giảm:</span>
-                <span className='text-red-800'>0 vnđ</span>
+                <span className='text-red-800'>
+                   <NumericFormat
+                      value={form?.discount}
+                      thousandSeparator
+                      displayType="text"
+                    />
+                  vnđ</span>
                </div>
                <div className='flex justify-end items-center space-x-6 font-medium text-xl'>
                 <span className='text-blue-900'>Số tiền cần thanh toán:</span>
-                <span className='text-red-800'>40.000 vnđ</span>
+                <span className='text-red-800'>
+                   <NumericFormat
+                      value= {form?.totalPaymemt}
+                      thousandSeparator
+                      displayType="text"
+                    />
+                  vnđ</span>
                </div>
             </div>
         </div>
 
 
-        <div className='mt-8'>
+        {/* <div className='mt-8'>
             <div className='flex justify-start items-center '>
               <p>  <img src="https://www.betacinemas.vn/Assets/global/img/booking/ic-payment.png" 
                     className='h-12'
@@ -175,7 +193,7 @@ const InfoPayment = ({form,setForm}) => {
                     </>)
                 })}           
             </div>
-        </div>
+        </div> */}
     </div>
   )
 }
