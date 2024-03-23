@@ -79,25 +79,25 @@ const Register = () => {
         },
     });
 
-    const  onSubmit = async (data: z.infer<typeof FormSchema>) =>  {
-      const dateFormat = format(new Date(data.date), "yyyy-MM-dd");
-      console.log(dateFormat);
-      
-        await registerMutation({ ...data, date: dateFormat }).unwrap().then(() => {
-          toastSuccess('Đăng kí thành công')
-          navigate('/login')
-        }).catch((error: any) => {
-     
-            if (error.data.email[0]) {
-                form.setError("email", {
-                    type: "server",
-                message: error.data.email[0]});
-            }
-            
-        })
-      
-        
-    }
+    const onSubmit = async (data: z.infer<typeof FormSchema>) => {
+        const dateFormat = format(new Date(data.date), "yyyy-MM-dd");
+        console.log(dateFormat);
+
+        await registerMutation({ ...data, date: dateFormat })
+            .unwrap()
+            .then(() => {
+                toastSuccess("Đăng kí thành công");
+                navigate("/login");
+            })
+            .catch((error: any) => {
+                if (error.data.email[0]) {
+                    form.setError("email", {
+                        type: "server",
+                        message: error.data.email[0],
+                    });
+                }
+            });
+    };
 
     return (
         <div className="bg-[#f8f8f8] min-h-[500px] py-5">
@@ -130,6 +130,22 @@ const Register = () => {
                                     <Input
                                         type="password"
                                         placeholder="Mật khẩu..."
+                                        {...field}
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="confirmPassword"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Nhập lại mật khẩu</FormLabel>
+                                <FormControl>
+                                    <Input
+                                        placeholder="Nhập lại mật khẩu..."
                                         {...field}
                                     />
                                 </FormControl>
@@ -201,8 +217,9 @@ const Register = () => {
                                             selected={field.value}
                                             onSelect={field.onChange}
                                             disabled={(date) =>
-                                                date > new Date() ||
-                                                date < new Date("1900-01-01")
+                                                new Date().getFullYear() -
+                                                    date.getFullYear() <
+                                                    16 || date > new Date()
                                             }
                                             initialFocus
                                         />
@@ -212,22 +229,7 @@ const Register = () => {
                             </FormItem>
                         )}
                     />
-                    <FormField
-                        control={form.control}
-                        name="confirmPassword"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Nhập lại mật khẩu</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        placeholder="Nhập lại mật khẩu..."
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
+
                     <Button
                         type="submit"
                         className={cn(
