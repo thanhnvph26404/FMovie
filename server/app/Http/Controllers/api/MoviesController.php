@@ -157,7 +157,7 @@ class MoviesController extends Controller
 
         // Nếu không tìm thấy danh mục, trả về một thông báo lỗi
         if (!$category) {
-            return response()->json(['message' => 'Không tìm thấy danh mục'], 404);
+            return response()->json(['message' => 'Không tìm thấy danh mục phim'], 404);
         }
 
         // Lọc phim theo danh mục
